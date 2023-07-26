@@ -12,7 +12,10 @@ class Index extends Component
   public function render()
   {
     return view('livewire.contacts.index', [
-      'contacts' => Contact::search($this->search)
+      'contacts' => Contact::where('first_name', 'LIKE', "%$this->search%")
+        ->orWhere('last_name', 'LIKE', "%$this->search%")
+        ->orWhere('email', 'LIKE', "%$this->search%")
+        ->get()
     ]);
   }
 }

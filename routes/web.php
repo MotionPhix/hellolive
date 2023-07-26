@@ -11,6 +11,9 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
 
   Route::get('/', \App\Livewire\Dashboard\Index::class)->name('dashboard');
+
+  Route::get('/contacts', \App\Livewire\Contacts\Index::class)->name('contacts.index');
+
   Route::get('/projects', \App\Livewire\Projects\Index::class)->name('projects.index');
 
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

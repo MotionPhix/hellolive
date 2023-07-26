@@ -11,22 +11,31 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    @include('components/layouts/navigation')
+<body class="font-sans antialiased min-h-screen bg-gray-100 dark:bg-gray-900">
 
-    <!-- Page Heading -->
-    @if (isset($header))
-      <header class="sticky top-0 z-10 bg-white shadow dark:bg-gray-800">
-        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          {{ $header }}
-        </div>
-      </header>
-    @endif
+  @include('components/layouts/navigation')
 
-    <!-- Page Content -->
+  <!-- Page Heading -->
+  <header class="sticky top-0 z-10 bg-white shadow dark:bg-gray-800"></header>
+
+  <!-- Page Content -->
+  <main>
     {{ $slot }}
+  </main>
 
-  </div>
+  <x-modal
+    name="contact-creation"
+    :show="$errors->userDeletion->isNotEmpty()"
+    focusable>
+    <livewire:contacts.create />
+  </x-modal>
+
+  <x-modal
+    name="company-creation"
+    :show="$errors->userDeletion->isNotEmpty()"
+    focusable>
+    <livewire:companies.create />
+  </x-modal>
+
 </body>
 </html>
