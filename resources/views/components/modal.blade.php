@@ -1,17 +1,17 @@
 @props([
-    'name',
-    'show' => false,
-    'maxWidth' => '2xl'
+  'name',
+  'show' => false,
+  'maxWidth' => '2xl'
 ])
 
 @php
-$maxWidth = [
+  $maxWidth = [
     'sm' => 'sm:max-w-sm',
     'md' => 'sm:max-w-md',
     'lg' => 'sm:max-w-lg',
     'xl' => 'sm:max-w-xl',
     '2xl' => 'sm:max-w-2xl',
-][$maxWidth];
+  ][$maxWidth];
 @endphp
 
 <div
@@ -40,7 +40,7 @@ $maxWidth = [
         }
     })"
     x-on:open-modal.window="$event.detail == '{{ $name }}' ? show = true : null"
-    x-on:close.stop="show = false"
+    x-on:close.stop="$event.detail.modal == '{{ $name }}' ? show = false : null"
     x-on:keydown.escape.window="show = false"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
@@ -48,6 +48,7 @@ $maxWidth = [
     class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50"
     style="display: {{ $show ? 'block' : 'none' }};"
 >
+{{-- show = false --}}
     <div
         x-show="show"
         class="fixed inset-0 transform transition-all"

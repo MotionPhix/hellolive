@@ -24,7 +24,7 @@
   </main>
 
   <x-modal
-    name="contact-creation"
+    name="create-contact"
     :show="$errors->userDeletion->isNotEmpty()"
     focusable>
     <livewire:contacts.create />

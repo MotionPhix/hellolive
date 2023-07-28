@@ -11,15 +11,9 @@
       <span class="flex-1"></span>
 
       <x-secondary-button
-        x-on:click.prevent="$dispatch('open-modal', 'contact-creation')"
+        x-on:click.prevent="$dispatch('open-modal', 'create-contact')"
         x-data="">
         New contact
-      </x-secondary-button>
-
-      <x-secondary-button
-        x-on:click.prevent="$dispatch('open-modal', 'company-creation')"
-        x-data="">
-        Add company
       </x-secondary-button>
 
     </div>

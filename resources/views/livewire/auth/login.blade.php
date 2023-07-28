@@ -5,7 +5,13 @@
   <!-- Email-->
   <div>
     <x-input-label for="email" :value="__('Email address')" />
-    <x-text-input id="email" class="block mt-1 w-full" wire:model="email" />
+
+    <x-text-input
+      id="email"
+      class="block mt-1 w-full"
+      wire:model="email"
+      autofocus />
+
     <x-input-error :messages="$errors->get('email')" class="mt-2" />
   </div>
 

@@ -9,6 +9,15 @@ class Index extends Component
 {
   public $search = '';
 
+  public function placeholder()
+  {
+    return <<<'HTML'
+      <div>
+        Loading ...
+      </div>
+    HTML;
+  }
+
   public function render()
   {
     return view('livewire.contacts.index', [

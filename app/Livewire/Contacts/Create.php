@@ -5,16 +5,22 @@ namespace App\Livewire\Contacts;
 use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
 {
+  public $open = false;
   public $companies;
   public $first_name;
   public $last_name;
+
+  #[Locked]
   public $company_id;
   public $status;
   public $email;
+  public $name;
 
   public function save()
   {
@@ -39,10 +45,31 @@ class Create extends Component
 
     $contact->save();
 
+    $this->reset();
+
     return $this->redirect(Index::class);
   }
 
-  public function mount() {
+  public function addCompany()
+  {
+
+    $this->validate([
+      'name' => 'required|string',
+    ]);
+
+    $company = new Company();
+
+    $company->name = $this->name;
+
+    $company->save();
+
+    $this->company_id = $company->id;
+
+    $this->reset('name');
+  }
+
+  public function mount()
+  {
     $this->companies = Company::get(['name', 'id']);
   }
 
