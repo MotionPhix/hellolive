@@ -24,10 +24,8 @@ class Company extends Component
 
     $this->reset('name');
 
-    $this->open = false;
-
     $this->dispatch('close', modal: 'create-company');
-    $this->dispatch('update-selected-company', company: $company->id)->to(Create::class);
+    $this->dispatch('update-selected-company', id: $company->id)->to(Create::class);
   }
 
   public function render()

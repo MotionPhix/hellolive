@@ -14,11 +14,11 @@ class Create extends Component
 {
   public $first_name;
   public $last_name;
-
-  #[Locked]
-  public $company_id = 4;
   public $status;
   public $email;
+
+  // #[Locked]
+  public $company_id;
 
   #[Computed]
   public function companies()
@@ -55,9 +55,9 @@ class Create extends Component
   }
 
   #[On('update-selected-company')]
-  public function updateCompanyId($company)
+  public function updateCompanyId($id)
   {
-    $this->company_id = $company;
+    $this->company_id = $id;
   }
 
   public function render()
