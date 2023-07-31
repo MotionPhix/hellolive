@@ -5,22 +5,26 @@ namespace App\Livewire\Contacts;
 use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
 {
-  public $open = false;
-  public $companies;
   public $first_name;
   public $last_name;
 
   #[Locked]
-  public $company_id;
+  public $company_id = 4;
   public $status;
   public $email;
-  public $name;
+
+  #[Computed]
+  public function companies()
+  {
+    return Company::get(['name', 'id']);
+  }
 
   public function save()
   {
@@ -50,27 +54,10 @@ class Create extends Component
     return $this->redirect(Index::class);
   }
 
-  public function addCompany()
+  #[On('update-selected-company')]
+  public function updateCompanyId($company)
   {
-
-    $this->validate([
-      'name' => 'required|string',
-    ]);
-
-    $company = new Company();
-
-    $company->name = $this->name;
-
-    $company->save();
-
-    $this->company_id = $company->id;
-
-    $this->reset('name');
-  }
-
-  public function mount()
-  {
-    $this->companies = Company::get(['name', 'id']);
+    $this->company_id = $company;
   }
 
   public function render()
