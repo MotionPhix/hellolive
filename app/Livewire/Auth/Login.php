@@ -10,14 +10,14 @@ use Livewire\Component;
 
 class Login extends Component
 {
-  public $email = '';
-  public $password = '';
-  public $remember = false;
+  public $email;
+  public $password;
+  public bool $remember = false;
 
   public function submit(Request $request)
   {
     $this->validate([
-      'email' => 'required|email:rfc,dns', //|unique:users
+      'email' => 'required|email:rfc', //|unique:users
       'password' => 'required',
     ]);
 
