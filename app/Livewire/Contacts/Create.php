@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class Create extends Component
 {
-  public $companies;
+  public $decorded_;
   public $first_name;
   public $last_name;
   public $status;
@@ -21,11 +21,18 @@ class Create extends Component
   #[Locked]
   public $company_id;
 
-  // #[Computed]
-  // public function companies()
-  // {
-  //   return Company::get(['name', 'id']);
-  // }
+  #[Computed]
+  public function companies()
+  {
+    return Company::get(['name', 'id']);
+  }
+
+  public function updateCompany() {
+
+    $this->company_id = $this->decorded_;
+    $this->dispatch('id-updated', id: $this->decorded_)->self();
+
+  }
 
   public function save()
   {
@@ -55,24 +62,17 @@ class Create extends Component
     return $this->redirect(Index::class);
   }
 
-  public function updated($property)
-  {
-    if ($property === 'companies') {
-      dd('we have a winner!');
-    }
-  }
-
   #[On('update-selected-company')]
-  public function setCompanyId($id)
+  public function reloaded($id)
   {
-    $this->companies = Company::get(['id', 'name']);
-    // $this->mount();
-    // $this->company_id = $id;
+    $this->decorded_ = $id;
   }
 
-  public function mount()
+  #[On('id-updated')]
+  public function fix($id)
   {
-    $this->companies = Company::get(['id', 'name']);
+    dd($id);
+    $this->company_id = $id;
   }
 
   public function render()

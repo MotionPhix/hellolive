@@ -86,7 +86,7 @@
             <option selected>Select contact's company</option>
             {{-- x-on:update-selected-company="$wire.set('company_id', )" --}}
 
-            @foreach ($companies as $company)
+            @foreach ($this->companies as $company)
               <option
                 value="{{ $company->id }}">
                 {{ $company->name }}
