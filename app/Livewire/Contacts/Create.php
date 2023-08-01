@@ -12,7 +12,6 @@ use Livewire\Component;
 
 class Create extends Component
 {
-  public $decorded_;
   public $first_name;
   public $last_name;
   public $status;
@@ -25,13 +24,6 @@ class Create extends Component
   public function companies()
   {
     return Company::get(['name', 'id']);
-  }
-
-  public function updateCompany() {
-
-    $this->company_id = $this->decorded_;
-    $this->dispatch('id-updated', id: $this->decorded_)->self();
-
   }
 
   public function save()
@@ -65,13 +57,6 @@ class Create extends Component
   #[On('update-selected-company')]
   public function reloaded($id)
   {
-    $this->decorded_ = $id;
-  }
-
-  #[On('id-updated')]
-  public function fix($id)
-  {
-    dd($id);
     $this->company_id = $id;
   }
 
