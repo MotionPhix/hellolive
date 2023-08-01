@@ -17,7 +17,7 @@ class Create extends Component
   public $status;
   public $email;
 
-  // #[Locked]
+  #[Locked]
   public $company_id;
 
   #[Computed]

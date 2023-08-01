@@ -24,14 +24,14 @@
   </main>
 
   <x-modal
-    name="create-contact"
+    name="create-base-contact"
     :show="$errors->userDeletion->isNotEmpty()"
     focusable>
     <livewire:contacts.create />
   </x-modal>
 
   <x-modal
-    name="company-creation"
+    name="create-base-company"
     :show="$errors->userDeletion->isNotEmpty()"
     focusable>
     <livewire:companies.create />
