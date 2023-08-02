@@ -57,11 +57,14 @@ class Create extends Component
   #[On('update-selected-company')]
   public function reloaded($id)
   {
+    $this->dispatch('update-id', id: $id);
+
+    /*
     $this->js(<<<'JS'
       setTimeout(() => {
         $wire.company_id = $id;
       }, 250);
-    JS);
+    JS);*/
   }
 
   public function render()

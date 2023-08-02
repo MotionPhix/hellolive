@@ -139,3 +139,15 @@
   <livewire:contacts.company />
 
 </div>
+
+<script>
+  document.addEventListener('livewire:init', function () {
+    Livewire.on('update-id', function (data) {
+      let components = Livewire.getByName('contacts.create')
+
+      setTimeout(() => {
+        components[0].set('company_id', data.id);
+      }, 250);
+    });
+  });
+</script>
