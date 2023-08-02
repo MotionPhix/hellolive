@@ -17,7 +17,7 @@ class Create extends Component
   public $status;
   public $email;
 
-  #[Locked]
+  // #[Locked]
   public $company_id;
 
   #[Computed]
@@ -57,7 +57,11 @@ class Create extends Component
   #[On('update-selected-company')]
   public function reloaded($id)
   {
-    $this->company_id = $id;
+    $this->js(<<<'JS'
+      setTimeout(() => {
+        $wire.company_id = $id;
+      }, 250);
+    JS);
   }
 
   public function render()
