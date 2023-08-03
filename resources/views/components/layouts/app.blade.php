@@ -11,7 +11,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased min-h-screen bg-gray-100 dark:bg-gray-900">
+<body class="min-h-screen font-sans antialiased bg-gray-100 dark:bg-gray-900">
 
   @include('components/layouts/navigation')
 
@@ -24,6 +24,13 @@
   </main>
 
   <x-modal
+    name="create-base-company"
+    :show="$errors->userDeletion->isNotEmpty()"
+    focusable>
+    <livewire:companies.create />
+  </x-modal>
+
+  <x-modal
     name="create-base-contact"
     :show="$errors->userDeletion->isNotEmpty()"
     focusable>
@@ -31,10 +38,10 @@
   </x-modal>
 
   <x-modal
-    name="create-base-company"
+    name="create-base-project"
     :show="$errors->userDeletion->isNotEmpty()"
     focusable>
-    <livewire:companies.create />
+    <livewire:projects.create />
   </x-modal>
 
 </body>
