@@ -51,20 +51,21 @@ class Create extends Component
 
     $this->reset();
 
-    return $this->redirect(Index::class);
+    return $this->redirect(Index::class, true);
   }
 
   #[On('update-selected-company')]
   public function reloaded($id)
   {
-    $this->dispatch('update-id', id: $id);
+    // $this->dispatch('update-id', id: $id);
 
-    /*
-    $this->js(<<<'JS'
+    $this->js(<<<JS
+      let component = Livewire.getByName('contacts.create')[0]
+
       setTimeout(() => {
-        $wire.company_id = $id;
-      }, 250);
-    JS);*/
+        component.set('company_id', $id)
+      }, 50);
+    JS);
   }
 
   public function render()

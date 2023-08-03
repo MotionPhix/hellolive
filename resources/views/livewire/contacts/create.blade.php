@@ -140,7 +140,7 @@
 
 </div>
 
-<script>
+{{-- <script>
   document.addEventListener('livewire:init', function () {
     Livewire.on('update-id', function (data) {
       let components = Livewire.getByName('contacts.create')
@@ -150,4 +150,4 @@
       }, 250);
     });
   });
-</script>
+</script> --}}
