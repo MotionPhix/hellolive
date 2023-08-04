@@ -21,6 +21,14 @@ class Create extends Component
   {
     return view('livewire.projects.create', [
       'contacts' => Contact::get(['id', 'first_name', 'last_name'])
+        ->transform(function ($contact) {
+          return [
+            'id' => $contact->id,
+            'option' => $contact->first_name . ' ' . $contact->last_name,
+            'disabled' => false
+          ];
+        })
+        ->toArray()
     ]);
   }
 }

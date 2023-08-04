@@ -30,6 +30,8 @@ class ProjectForm extends Form
 
   public function store()
   {
+    dd($this->all());
+
     Project::create($this->only(['name', 'description', 'company_id']));
     $this->reset();
   }

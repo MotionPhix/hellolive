@@ -4,11 +4,12 @@
     title="Create project">
 
     <form
-      wire.submit="submit">
+      wire:submit="submit"
+      novalidate="novalidate">
 
-      <div class="grid gap-4 mb-4 space-y-6 sm:grid-cols-2">
+      <div class="grid gap-4 mb-4 sm:grid-cols-2">
 
-        <div class="col-span-2">
+        <div class="col-span-1">
 
           <x-input-label
             for="name"
@@ -32,7 +33,11 @@
             class="mb-2"
             value="Project contact" />
 
-          <select
+            <x-selectable
+            wire:model="form.contact_id"
+            :options="$contacts" />
+
+          {{-- <select
             wire:model="form.contact_id"
             placeholder="Select project's company"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -45,8 +50,8 @@
               </option>
             @endforeach
 
-            <x-input-error :messages="$errors->get('form.company_id')" class="mt-2" />
-          </select>
+            <x-input-error :messages="$errors->get('form.contact_id')" class="mt-2" />
+          </select> --}}
         </div>
 
         <div class="col-span-2">
@@ -55,7 +60,7 @@
             for="description"
             value="Project description" />
 
-          <textarea
+          <x-textarea
             id="description"
             wire:model="form.description"
             placeholder="Type project's name" />
