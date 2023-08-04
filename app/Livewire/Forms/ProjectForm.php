@@ -3,21 +3,15 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Project;
-use Livewire\Attributes\Rule;
 use Livewire\Form;
 
 class ProjectForm extends Form
 {
   public ?Project $project;
 
-  #[Rule('required|min:5')]
-  public $name = '';
-
-  #[Rule('required')]
-  public $contact_id = '';
-
-  #[Rule('required|min:5')]
-  public $description = '';
+  public $name;
+  public $contact_id;
+  public $description;
 
   public function setProject(Project $project)
   {
@@ -30,9 +24,14 @@ class ProjectForm extends Form
 
   public function store()
   {
-    dd($this->all());
+    $project = new Project();
 
-    Project::create($this->only(['name', 'description', 'company_id']));
+    $project->name = $this->name;
+    $project->description = $this->description;
+    $project->contact_id = is_array($this->contact_id) ? $this->contact_id['id'] : $this->contact_id;
+
+    $project->save();
+
     $this->reset();
   }
 

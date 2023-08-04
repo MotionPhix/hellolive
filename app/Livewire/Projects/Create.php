@@ -12,7 +12,17 @@ class Create extends Component
 
   public function submit()
   {
+    $this->validate([
+      'form.name' => 'required',
+      'form.contact_id' => 'required|exists:contacts,id',
+      'form.description' => 'nullable|min:30'
+    ], [
+      'form.contact_id.required' => 'The selected contact doesn\'t exist'
+    ]);
+
     $this->form->store();
+
+    $this->dispatch('close', modal: 'create-base-project');
 
     return $this->redirect('/projects', true);
   }

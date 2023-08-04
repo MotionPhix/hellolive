@@ -33,8 +33,9 @@
             class="mb-2"
             value="Project contact" />
 
-            <x-selectable
+          <x-selectable
             wire:model="form.contact_id"
+            placeholder="Pick a contact person"
             :options="$contacts" />
 
           {{-- <select
@@ -49,23 +50,24 @@
                 {{ $contact->first_name . ' ' . $contact->last_name }}
               </option>
             @endforeach
-
-            <x-input-error :messages="$errors->get('form.contact_id')" class="mt-2" />
           </select> --}}
+
+          <x-input-error :messages="$errors->get('form.contact_id')" class="mt-2" />
         </div>
 
         <div class="col-span-2">
 
           <x-input-label
             for="description"
-            value="Project description" />
+            value="Project description"
+            class="mb-2" />
 
           <x-textarea
             id="description"
             wire:model="form.description"
             placeholder="Type project's name" />
 
-          <x-input-error :messages="$errors->get('form.description')" />
+          <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
 
         </div>
 
@@ -73,7 +75,7 @@
 
           <button
             type="submit"
-            class="text-white inline-flex items-center bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            class="text-white inline-flex items-center dark:bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
             <x-tabler-plus class="mr-2" />
 
