@@ -14,6 +14,13 @@ class Contact extends Model
 {
   use HasFactory;
 
+  const STATUSES = [
+    'active' => 'Active',
+    'dormant' => 'Inactive'
+  ];
+
+  protected $appends = ['statusColour'];
+
   public function company(): BelongsTo
   {
     return $this->belongsTo(Company::class);
@@ -62,8 +69,23 @@ class Contact extends Model
     }])->select(['id', 'first_name', 'last_name', 'status', 'email', 'company_id']);
   }
 
-  public function total()
+  public function getStatusAttribute($value)
   {
-    return $this->forUser(auth()->user())->count();
+    return $value === 'dormant' ? 'inactive' : $value;
+  }
+
+  public function getStatusColourAttribute()
+  {
+    return [
+
+      'active' => 'bg-rose-100 text-rose-800',
+
+    ][$this->status] ?? 'bg-rose-100 text-rose-800';
+
+  }
+
+  public function getDateForHumansAttribute()
+  {
+    return $this->created_at->format('M, d, Y');
   }
 }

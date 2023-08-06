@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Contact;
 use App\Models\Project;
 use Livewire\Form;
 
@@ -25,10 +26,13 @@ class ProjectForm extends Form
   public function store()
   {
     $project = new Project();
+    $contact = Contact::findOrFail($this->contact_id['id']);
 
     $project->name = $this->name;
     $project->description = $this->description;
-    $project->contact_id = is_array($this->contact_id) ? $this->contact_id['id'] : $this->contact_id;
+    $project->contact_id = $this->contact_id['id'];
+    $project->company_id = $contact->company->id;
+    $project->user_id = auth()->user()->id;
 
     $project->save();
 

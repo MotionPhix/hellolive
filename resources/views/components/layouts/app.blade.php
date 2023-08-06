@@ -8,7 +8,7 @@
     <title>{{ $title ?? config('app.name') }}</title>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
   </head>
 
   <body class="min-h-screen font-sans antialiased bg-gray-100 dark:bg-gray-900">
@@ -16,9 +16,20 @@
     @include('components/layouts/navigation')
 
     <!-- Page Heading -->
-    <header
-      class="sticky top-0 z-10 bg-white shadow dark:bg-gray-800">
-    </header>
+    @if(isset($header))
+
+      <header
+        class="sticky top-0 z-10 bg-white shadow dark:bg-gray-800">
+
+          <div class="flex items-center gap-4 px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+
+            {{ $header }}
+
+          </div>
+
+      </header>
+
+    @endif
 
     <!-- Page Content -->
     <main>
@@ -40,10 +51,17 @@
     </x-modal>
 
     <x-modal
-      name="create-base-contact"
+      name="base-contact"
       :show="$errors->userDeletion->isNotEmpty()"
       focusable>
       <livewire:contacts.create />
+    </x-modal>
+
+    <x-modal
+      name="base-contact-edit"
+      :show="$errors->userDeletion->isNotEmpty()"
+      focusable>
+      <livewire:contacts.update />
     </x-modal>
 
   </body>

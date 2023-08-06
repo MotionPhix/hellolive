@@ -18,7 +18,7 @@ return new class extends Migration
       $table->string('first_name', 30);
       $table->string('last_name', 30);
       $table->string('email', 50)->nullable();
-      $table->enum('status', ['active', 'in-active'])->default('active');
+      $table->enum('status', ['active', 'dormant'])->default('active');
 
       $table->unique(['first_name', 'last_name', 'email']);
 

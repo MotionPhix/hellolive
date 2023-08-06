@@ -22,7 +22,7 @@ class Project extends Model
 
   public function company(): BelongsTo
   {
-    return $this->belongsTo(Contact::class);
+    return $this->belongsTo(Company::class);
   }
 
   public function contact(): BelongsTo
@@ -30,29 +30,24 @@ class Project extends Model
     return $this->belongsTo(Contact::class);
   }
 
+  public function owner()
+  {
+    return $this->belongsTo(User::class);
+  }
+
   public function boards(): HasMany
   {
     return $this->hasMany(Board::class);
   }
 
-  public function users() // users working on this project
+  public function team() // team working on this project
   {
-    return $this->belongsToMany(User::class, 'project_user')
-      ->withPivot('role', 'assigned_by')
-      ->withTimestamps();
+    return $this->belongsTo(Team::class);
   }
 
   public function tasks(): HasMany
   {
     return $this->hasMany(Task::class);
-  }
-
-  public function isOwner(User $user)
-  {
-    return $this->users()
-      ->wherePivot('user_id', $user->id)
-      ->wherePivot('role', 'owner')
-      ->exists();
   }
 
   public function files(): MorphMany
@@ -62,18 +57,11 @@ class Project extends Model
 
   public function scopeForUser(Builder $query, User $user)
   {
-    if ($user->hasPermissionTo('view-all-projects') || $user->hasAnyRole(['admin', 'general-manager'])) {
-
-      return $query->with(['contact:id,company_id' => ['company:id,name'], 'files'])
-        ->orderByDeadline();
-    }
-
-    $query->select(['id', 'contact_id', 'description', 'name', 'status'])
-      ->whereHas('users', function ($query) use ($user) {
-        $query->where('user_id', $user->id);
-      })
-      ->with(['contact:id,company_id,first_name,last_name', 'contact.company:id,name'])
-      ->orderByDeadline();
+    $query->select(['id', 'description', 'name', 'status', 'contact_id', 'company_id'])
+      ->where('projects.user_id', $user->id)
+      ->with(['contact:id,first_name,last_name', 'company:id,name'])
+      ->groupBy('projects.id')
+      ->orderBy('projects.created_at');
   }
 
   public function scopeUsersNotOnProject()

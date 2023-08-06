@@ -46,8 +46,8 @@
             <option value="" disabled>Pick a contact</option>
 
             @foreach ($contacts as $contact)
-              <option value="{{ $contact->id }}">
-                {{ $contact->first_name . ' ' . $contact->last_name }}
+              <option value="{{ $contact['id'] }}" wire:key="{{ $contact['id'] }}">
+                {{ $contact['option'] }}
               </option>
             @endforeach
           </select> --}}

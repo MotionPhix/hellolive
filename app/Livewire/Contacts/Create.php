@@ -2,23 +2,17 @@
 
 namespace App\Livewire\Contacts;
 
+use App\Livewire\Forms\ContactForm;
 use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
 {
-  public $first_name;
-  public $last_name;
-  public $status;
-  public $email;
-
-  // #[Locked]
-  public $company_id;
+  public ContactForm $form;
 
   #[Computed]
   public function companies()
@@ -33,37 +27,24 @@ class Create extends Component
       'last_name' => 'required|string',
       'email' => 'nullable|email:rfc,dns|unique:contacts',
       'company_id' => 'required|exists:companies,id',
-      'status' => 'required|in:active,in_active',
+      'status' => 'required|in:active,dormant',
     ], [
       'company_id.exists' => 'The selected company isn\'t in the database.'
     ]);
 
-    $contact = new Contact();
-
-    $contact->first_name = $this->first_name;
-    $contact->last_name = $this->last_name;
-    $contact->email = $this->email;
-    $contact->status = $this->status;
-    $contact->company_id = $this->company_id;
-    $contact->user_id = Auth::user()->id;
-
-    $contact->save();
-
-    $this->reset();
+    $this->form->store();
 
     return $this->redirect(Index::class, true);
   }
 
   #[On('update-selected-company')]
-  public function reloaded($id)
+  public function updateCompany($id)
   {
     // $this->dispatch('update-id', id: $id);
 
     $this->js(<<<JS
-      let component = Livewire.getByName('contacts.create')[0]
-
       setTimeout(() => {
-        component.set('company_id', $id)
+        \$wire.form.company_id = $id
       }, 50);
     JS);
   }

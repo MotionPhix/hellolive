@@ -1,9 +1,9 @@
 <span>
   <x-heading
     closeable="base-contact"
-    title="Add contact">
+    title="Update contact">
 
-    <form novalidate="novalidate" wire:submit="save">
+    <form novalidate="novalidate" wire:submit="update">
       <div class="grid gap-6 mb-6 sm:grid-cols-2">
         <div>
           <label
@@ -48,8 +48,8 @@
 
           <x-text-input
             type="email"
-            class="block w-full"
             wire:model="form.email"
+            class="block w-full"
             placeholder="Enter contact's email address"
             id="email" />
 
@@ -143,14 +143,3 @@
 
   </x-heading>
 </span>
-{{-- <script>
-  document.addEventListener('livewire:init', function () {
-    Livewire.on('update-id', function (data) {
-      let components = Livewire.getByName('contacts.create')
-
-      setTimeout(() => {
-        components[0].set('company_id', data.id);
-      }, 250);
-    });
-  });
-</script> --}}

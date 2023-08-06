@@ -133,7 +133,7 @@
     <span
       x-text="selectedItem ? selectedItem.option : '{{ $placeholder }}'"
       class="truncate"
-      :class="selectedItem ? 'text-gray-300' : ''">
+      :class="selectedItem?.option ? 'dark:text-gray-300 text-gray-800' : ''">
       {{ $placeholder }}
     </span>
 
@@ -148,8 +148,8 @@
     x-transition:enter="transition ease-out duration-50"
     x-transition:enter-start="opacity-0 -translate-y-1"
     x-transition:enter-end="opacity-100"
-    :class="{ 'bottom-0 mb-10' : selectDropdownPosition == 'top', 'top-0 mt-10' : selectDropdownPosition == 'bottom' }"
-    class="absolute z-10 w-full py-1 mt-1 overflow-auto text-sm bg-white rounded-md shadow-md dark:bg-gray-900 dark:text-gray-300 max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none"
+    :class="{ 'bottom-1.5 mb-10' : selectDropdownPosition == 'top', 'top-1.5 mt-10' : selectDropdownPosition == 'bottom' }"
+    class="absolute w-full py-1 overflow-auto text-sm bg-white rounded-md shadow-md dark:bg-gray-900 dark:text-gray-300 max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none"
     x-cloak>
     <template x-for="item in selectableItems" :key="item.id">
       <li
@@ -158,11 +158,11 @@
         :data-disabled="item.disabled"
         :class="{ 'bg-neutral-100 text-gray-900' : selectableItemIsActive(item), '' : !selectableItemIsActive(item) }"
         @mousemove="selectableItemActive=item"
-        class="relative flex items-center h-full hover:bg-gray-400 dark:hover:bg-gray-800 py-2 pl-8 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 select-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-        {{-- class="relative flex items-center h-full py-2 pl-8 text-gray-700 cursor-default select-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none" --}}
-        <x-tabler-check x-show="selectedItem.id==item.id" class="absolute left-0 w-4 h-4 ml-2 stroke-current text-neutral-400" />
+        class="relative flex items-center h-full hover:bg-gray-200 dark:hover:bg-gray-800 py-2 pl-8 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 select-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
+        <x-tabler-check x-show="selectedItem?.id === item.id" class="absolute left-0 w-4 h-4 ml-2 stroke-current text-neutral-400" />
         <span class="block font-medium truncate" x-text="item.option"></span>
       </li>
     </template>
   </ul>
+
   </div>
