@@ -47,11 +47,6 @@ class Index extends Component
 
   }
 
-  public function update($id)
-  {
-    $this->dispatch('open-modal', modal: 'base-contact'); //->to(Update::class);
-  }
-
   #[Layout('components.layouts.app')]
   public function render()
   {

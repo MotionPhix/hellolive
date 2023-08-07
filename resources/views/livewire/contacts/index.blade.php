@@ -96,7 +96,7 @@
 
                 <x-table.cell>
                   <x-button.primary
-                    x-on:click.prevent="$dispatch('update-contact', { id: {{ $contact->id }} })"
+                    x-on:click.prevent="$dispatch('update-contact', { contact: {{ $contact->id }} })"
                     x-data="">
                     Edit
                   </x-button.primary>

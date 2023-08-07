@@ -28,10 +28,10 @@ class Update extends Component
   }
 
   #[On('update-contact')]
-  public function open(Contact $id)
+  public function open(Contact $contact)
   {
-    $this->dispatch('open-modal', modal: 'base-contact');
-    $this->form->setContact($id);
+    // $this->form->setContact($contact);
+    $this->dispatch('open-modal', modal: 'base-contact-edit');
   }
 
   #[Layout('components.layouts.app')]
