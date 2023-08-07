@@ -16,23 +16,6 @@ class ContactForm extends Form
   public $phone;
   public $email;
 
-  public function setContact(Contact $contact)
-  {
-    $this->contact = $contact;
-
-    $this->first_name = $contact->first_name;
-
-    $this->last_name = $contact->last_name;
-
-    $this->status = $contact->status;
-
-    if ($contact->phones()->count()) {
-      $this->phone = $contact->phones->random()->number;
-    }
-
-    $this->company_id = $contact->company_id;
-  }
-
   public function store()
   {
     $contact = new Contact();
@@ -57,10 +40,43 @@ class ContactForm extends Form
     $this->reset();
   }
 
+  public function setContact(Contact $contact)
+  {
+    $this->contact = $contact;
+
+    $this->first_name = $contact->first_name;
+
+    $this->last_name = $contact->last_name;
+
+    $this->email = $contact->email;
+
+    $this->status = $contact->status;
+
+    if ($contact->phones()->count()) {
+      $this->phone = $contact->phones->random()->number;
+    }
+
+    $this->company_id = $contact->company_id;
+  }
+
   public function update()
   {
-    $this->contact->update(
-      $this->all()
-    );
+    $this->contact->first_name = $this->first_name;
+    $this->contact->last_name = $this->last_name;
+    $this->contact->email = $this->email;
+    $this->contact->status = $this->status;
+    $this->contact->company_id = $this->company_id;
+
+    $this->contact->user_id = auth()->user()->id;
+
+    $this->contact->save();
+
+    if ($this->phone) {
+      $phone = new \App\Models\Phone();
+
+      $phone->number = $this->phone;
+
+      $this->contact->phones()->save($phone);
+    }
   }
 }

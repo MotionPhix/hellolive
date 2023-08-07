@@ -4,8 +4,6 @@ namespace App\Livewire\Contacts;
 
 use App\Livewire\Forms\ContactForm;
 use App\Models\Company;
-use App\Models\Contact;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -23,13 +21,14 @@ class Create extends Component
   public function save()
   {
     $this->validate([
-      'first_name' => 'required|string',
-      'last_name' => 'required|string',
-      'email' => 'nullable|email:rfc,dns|unique:contacts',
-      'company_id' => 'required|exists:companies,id',
-      'status' => 'required|in:active,dormant',
+      'form.first_name' => 'required|string',
+      'form.last_name' => 'required|string',
+      'form.email' => 'nullable|email:rfc,dns|unique:contacts,email',
+      'form.company_id' => 'required|exists:companies,id',
+      'form.status' => 'required|in:active,dormant',
     ], [
-      'company_id.exists' => 'The selected company isn\'t in the database.'
+      'form.email.unique' => 'That email is already in use by another contact',
+      'form.company_id.exists' => 'The selected company isn\'t in the database.'
     ]);
 
     $this->form->store();
@@ -45,7 +44,7 @@ class Create extends Component
     $this->js(<<<JS
       setTimeout(() => {
         \$wire.form.company_id = $id
-      }, 50);
+      }, 10);
     JS);
   }
 

@@ -30,13 +30,15 @@ class Update extends Component
   #[On('update-contact')]
   public function open(Contact $contact)
   {
-    // $this->form->setContact($contact);
-    $this->dispatch('open-modal', modal: 'base-contact-edit');
+    $this->form->setContact($contact);
+    $this->dispatch('open-modal', 'base-contact-update');
   }
 
   #[Layout('components.layouts.app')]
   public function render()
   {
-    return view('livewire.contacts.create');
+    return view('livewire.contacts.update', [
+      'title' => 'Update contact'
+    ]);
   }
 }

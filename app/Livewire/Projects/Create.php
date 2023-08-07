@@ -4,7 +4,6 @@ namespace App\Livewire\Projects;
 
 use App\Livewire\Forms\ProjectForm;
 use App\Models\Contact;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Create extends Component

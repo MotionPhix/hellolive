@@ -7,7 +7,7 @@
   <span class="flex-1"></span>
 
   <x-secondary-button
-    x-on:click.prevent="$dispatch('open-modal', 'create-base-project')"
+    x-on:click.prevent="$dispatch('open-modal', 'base-project')"
     x-data="">
     <x-tabler-plus class="h-4 w-4" />
 

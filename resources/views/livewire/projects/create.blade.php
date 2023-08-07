@@ -1,6 +1,6 @@
 <span>
   <x-heading
-    closeable="create-base-project"
+    closeable="base-project"
     title="Create project">
 
     <form

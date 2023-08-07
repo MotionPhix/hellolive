@@ -37,29 +37,25 @@
     </main>
 
     <x-modal
-      name="create-base-project"
-      :show="$errors->userDeletion->isNotEmpty()"
+      name="base-project"
       focusable>
       <livewire:projects.create />
     </x-modal>
 
     <x-modal
-      name="create-base-company"
-      :show="$errors->userDeletion->isNotEmpty()"
+      name="base-company"
       focusable>
       <livewire:companies.create />
     </x-modal>
 
     <x-modal
       name="base-contact"
-      :show="$errors->userDeletion->isNotEmpty()"
       focusable>
       <livewire:contacts.create />
     </x-modal>
 
     <x-modal
-      name="base-contact-edit"
-      :show="$errors->userDeletion->isNotEmpty()"
+      name="base-contact-update"
       focusable>
       <livewire:contacts.update />
     </x-modal>
