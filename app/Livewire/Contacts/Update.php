@@ -5,6 +5,7 @@ namespace App\Livewire\Contacts;
 use App\Livewire\Forms\ContactForm;
 use App\Models\Company;
 use App\Models\Contact;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -22,6 +23,18 @@ class Update extends Component
 
   public function save()
   {
+    $this->validate([
+      'form.first_name' => 'required|string',
+      'form.last_name' => 'required|string',
+      'form.email' => ['nullable', 'email:rfc,dns', Rule::unique('contacts', 'email')->ignore($this->form->contact->id)],
+      'form.company_id' => 'required|exists:companies,id',
+      'form.status' => 'required|in:active,dormant',
+    ], [
+      'form.email.email' => 'The email you provided looks too fake',
+      'form.email.unique' => 'That email is already in use by another contact',
+      'form.company_id.exists' => 'The selected company isn\'t in the database.'
+    ]);
+
     $this->form->update();
 
     return $this->redirect('/contacts', true);
@@ -30,8 +43,8 @@ class Update extends Component
   #[On('update-contact')]
   public function open(Contact $contact)
   {
-    $this->form->setContact($contact);
     $this->dispatch('open-modal', 'base-contact-update');
+    $this->form->setContact($contact);
   }
 
   #[Layout('components.layouts.app')]

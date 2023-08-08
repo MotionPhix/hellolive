@@ -9,7 +9,7 @@
   <x-secondary-button
     x-on:click.prevent="$dispatch('open-modal', 'base-project')"
     x-data="">
-    <x-tabler-plus class="h-4 w-4" />
+    <x-tabler-plus class="w-4 h-4" />
 
     <span class="ml-2">
       New
@@ -71,7 +71,7 @@
               </div>
 
               <div class="flex items-center lg:ml-6">
-                <button class="flex items-center h-8 px-5 text-sm text-indigo-700 font-semibold transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 hover:bg-gray-300">
+                <button class="flex items-center h-8 px-5 text-sm font-semibold text-indigo-700 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 hover:bg-gray-300">
                   <x-tabler-printer />
 
                   <span class="ml-2">
@@ -95,15 +95,15 @@
                     <input placeholder="check box" type="checkbox" class="relative w-5 h-5 bg-white border border-gray-400 rounded cursor-pointer dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400" onclick="checkAll(this)" />
                   </th>
 
-                  <th role="columnheader" class="uppercase pr-6 text-sm font-medium leading-4 tracking-normal text-left text-gray-600 dark:text-gray-400">
+                  <th role="columnheader" class="pr-6 text-sm font-medium leading-4 tracking-normal text-left text-gray-600 uppercase dark:text-gray-400">
                     Project Name
                   </th>
 
-                  <th role="columnheader" class="uppercase pr-6 text-sm font-medium leading-4 tracking-normal text-left text-gray-600 dark:text-gray-400">
+                  <th role="columnheader" class="pr-6 text-sm font-medium leading-4 tracking-normal text-left text-gray-600 uppercase dark:text-gray-400">
                     Client
                   </th>
 
-                  <th role="columnheader" class="uppercase pr-6 text-sm font-medium leading-4 tracking-normal text-left text-gray-600 dark:text-gray-400">
+                  <th role="columnheader" class="pr-6 text-sm font-medium leading-4 tracking-normal text-left text-gray-600 uppercase dark:text-gray-400">
                     Company Contact
                   </th>
 
@@ -111,7 +111,7 @@
                     <div class="w-2 h-2 bg-indigo-400 rounded-full opacity-0"></div>
                   </th>
 
-                  <td role="columnheader" class="uppercase pr-8 text-sm text-right font-medium leading-4 tracking-normal text-gray-600 dark:text-gray-400">
+                  <td role="columnheader" class="pr-8 text-sm font-medium leading-4 tracking-normal text-right text-gray-600 uppercase dark:text-gray-400">
                     {{-- More --}}
                   </td>
                 </tr>
@@ -121,7 +121,7 @@
 
                 @foreach ($projects as $project)
 
-                  <tr class="h-16 border-b border-gray-300 dark:border-gray-600">
+                  <tr class="w-full h-16 border-b border-gray-300 dark:border-gray-600">
                     <td class="pl-8 pr-6 text-sm leading-4 tracking-normal text-left text-gray-800 whitespace-no-wrap dark:text-gray-100">
                       <input placeholder="check box" type="checkbox" class="relative w-5 h-5 bg-white border border-gray-400 rounded cursor-pointer dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400" onclick="tableInteract(this)" />
                     </td>
@@ -136,7 +136,7 @@
 
                     <td class="pr-6 whitespace-no-wrap">
                       <div class="flex items-center">
-                        <div class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 shadow">
+                        <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full shadow">
                           <x-tabler-user class="overflow-hidden h-7 w-7" />
                         </div>
 
@@ -152,20 +152,12 @@
 
                     <td
                       class="relative pr-8 text-right">
-                      <div
-                        x-data="{ open: false }">
-                      <button @click="open = !open" aria-label="dropdown" role="button" class="text-gray-500 border border-transparent rounded cursor-pointer dropbtn focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400" aria-label="Options expandable" role="button">
+                      <x-menu
+                        class="text-gray-500 border border-transparent rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                        aria-label="Options expandable"
+                        role="button">
                         <x-tabler-dots-vertical />
-                      </button>
-
-                      <div x-show="open" class="absolute left-0 z-10 hidden w-32 mt-1 -ml-12 shadow-md dropdown-content">
-                        <ul class="py-1 bg-white rounded shadow dark:bg-gray-800">
-                          <li class="px-3 py-3 text-sm font-normal leading-3 tracking-normal text-gray-600 cursor-pointer dark:text-gray-400 hover:bg-indigo-700 hover:text-white">Edit</li>
-                          <li class="px-3 py-3 text-sm font-normal leading-3 tracking-normal text-gray-600 cursor-pointer dark:text-gray-400 hover:bg-indigo-700 hover:text-white">Delete</li>
-                          <li class="px-3 py-3 text-sm font-normal leading-3 tracking-normal text-gray-600 cursor-pointer dark:text-gray-400 hover:bg-indigo-700 hover:text-white">Duplicate</li>
-                        </ul>
-                      </div>
-                    </div>
+                      </x-menu>
                     </td>
                   </tr>
 

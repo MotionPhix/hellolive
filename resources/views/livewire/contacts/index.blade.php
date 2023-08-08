@@ -20,7 +20,7 @@
 
     <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
 
-      <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
+      <div class="p-6 space-y-6 text-gray-900 dark:text-gray-100">
 
         <x-text-input
           wire:model.live="search"
@@ -96,8 +96,7 @@
 
                 <x-table.cell>
                   <x-button.primary
-                    x-on:click.prevent="$dispatch('update-contact', { contact: {{ $contact->id }} })"
-                    x-data="">
+                    wire:click="edit({{ $contact->id }})">
                     Edit
                   </x-button.primary>
                 </x-table.cell>

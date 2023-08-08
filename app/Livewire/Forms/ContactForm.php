@@ -9,10 +9,10 @@ class ContactForm extends Form
 {
   public ?Contact $contact;
 
-  public $company_id;
+  public $company_id = '';
   public $first_name;
   public $last_name;
-  public $status;
+  public $status = '';
   public $phone;
   public $email;
 
@@ -50,7 +50,7 @@ class ContactForm extends Form
 
     $this->email = $contact->email;
 
-    $this->status = $contact->status;
+    $this->status = $contact->status === 'inactive' ? 'dormant' : $contact->status;
 
     if ($contact->phones()->count()) {
       $this->phone = $contact->phones->random()->number;

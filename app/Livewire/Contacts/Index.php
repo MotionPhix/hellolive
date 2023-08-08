@@ -26,6 +26,11 @@ class Index extends Component
     HTML;
   }
 
+  public function edit($id)
+  {
+    $this->dispatch('update-contact', contact: $id)->to(Update::class);
+  }
+
   public function sortBy($column)
   {
     /*if ($this->field === $column)

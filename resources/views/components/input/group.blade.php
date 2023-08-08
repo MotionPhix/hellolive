@@ -12,11 +12,11 @@
   <div>
     <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-gray-700">{{ $label }}</label>
 
-    <div class="mt-1 relative rounded-md shadow-sm">
+    <div class="relative mt-1 rounded-md">
       {{ $slot }}
 
       @if ($error)
-        <div class="mt-1 text-red-500 text-sm">{{ $error }}</div>
+        <div class="mt-1 text-sm text-red-500">{{ $error }}</div>
       @endif
 
       @if ($helpText)
@@ -34,7 +34,7 @@
       {{ $slot }}
 
       @if ($error)
-        <div class="mt-1 text-red-500 text-sm">{{ $error }}</div>
+        <div class="mt-1 text-sm text-red-500">{{ $error }}</div>
       @endif
 
       @if ($helpText)
