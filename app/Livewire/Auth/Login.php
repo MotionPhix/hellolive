@@ -20,19 +20,6 @@ class Login extends Component
       'email' => 'required|email:rfc', //|unique:users
       'password' => 'required',
     ]);
-
-    if (Auth::attempt(
-      ["email" => $this->email, "password" => $this->password],
-      $this->remember)) {
-      $request->session()->regenerate();
-
-      return redirect()->intended('/');
-    }
-
-    $this->password = null;
-    $this->addError('email', 'The provided credentials do not match our records.');
-
-    return back();
   }
 
   #[Title('Login')]

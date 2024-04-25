@@ -2,12 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'guest'], function () {
-
-  Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
-  Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
-});
-
 Route::group(['middleware' => 'auth'], function () {
 
   Route::get('/', \App\Livewire\Dashboard\Index::class)->name('dashboard');
@@ -17,7 +11,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/projects', \App\Livewire\Projects\Index::class)->name('projects.index');
 
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
@@ -26,4 +22,12 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
     ->name('password.request');
+});
+
+Route::group(['middleware' => 'guest'], function () {
+
+  Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
+
+  Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
+
 });
