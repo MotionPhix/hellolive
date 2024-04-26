@@ -15,7 +15,13 @@ class Register extends Component
   public function submit()
   {
 
-    $this->form->store();
+    $this->form->store(terms: function () {
+
+      $this->addError('password', 'Please accept our terms of service.');
+
+      return $this->redirect('/register', navigate: true);
+
+    });
 
     return redirect()->to('/');
 

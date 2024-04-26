@@ -41,16 +41,14 @@ class AuthForm extends Form
     $this->password = $user->password;
   }
 
-  public function store()
+  public function store(callable $terms)
   {
 
     $this->validate();
 
     if ($this->agree_to_terms === false) {
 
-      $this->addError('password', 'Please accept our terms of service.');
-
-      return $this->redirect('/register', navigate: true);
+      $terms();
 
     };
 
