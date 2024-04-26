@@ -2,24 +2,23 @@
 
 namespace App\Livewire\Auth;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Livewire\Forms\AuthForm;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Login extends Component
 {
-  public $email;
-  public $password;
-  public bool $remember = false;
 
-  public function submit(Request $request)
+  public AuthForm $form;
+
+  public function submit()
   {
-    $this->validate([
-      'email' => 'required|email:rfc', //|unique:users
-      'password' => 'required',
-    ]);
+
+    $this->form->authorise();
+
+    return redirect()->to('/');
+
   }
 
   #[Title('Login')]

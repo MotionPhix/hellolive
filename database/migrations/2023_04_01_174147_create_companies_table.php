@@ -14,10 +14,13 @@ return new class extends Migration
   public function up()
   {
     Schema::create('companies', function (Blueprint $table) {
+
       $table->id();
+
       $table->string('name', 50);
-      $table->text('address')->nullable();
+
       $table->timestamps();
+
     });
   }
 

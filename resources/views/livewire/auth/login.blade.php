@@ -53,7 +53,7 @@
     Welcome again
   </h2>
 
-  <p class="mb-8 leading-tight text-gray-500 text-md dark:text-white -tracking-tighter">
+  <p class="mb-8 text-gray-500 text-md dark:text-white">
     We hope your projects are up-to-par and you have a lot of tasks to manage. Let's get you up to speed!
   </p>
 
@@ -65,7 +65,7 @@
     <div class="w-full p-2">
 
       <x-input.group
-        :error="$errors->first('email')"
+        :error="$errors->first('form.email')"
         :inline="true"
         class="block"
         label="Email"
@@ -74,7 +74,7 @@
         <x-input.text
           placeholder="Email Address"
           class="p-4 rounded-md"
-          wire:model="email"
+          wire:model="form.email"
           type="email"
           id="email" />
 
@@ -85,7 +85,7 @@
     <div class="w-full p-2">
 
       <x-input.group
-        :error="$errors->first('password')"
+        :error="$errors->first('form.password')"
         for="password"
         label="Password"
         :inline="true">
@@ -96,12 +96,13 @@
           <x-input.text
             class="p-4 rounded-md md:pr-40"
             placeholder="Password"
-            wire:model="password"
+            wire:model="form.password"
             type="password"
             id="password" />
 
           <a
             class="inline-block px-4 pb-4 text-sm tracking-tight text-gray-300 transition duration-200 dark:text-gray-200 md:absolute md:right-4 md:top-1/2 md:transform md:-translate-y-1/2 md:p-0 hover:text-gray-400 dark:hover:text-gray-300"
+            href="/reset-password"
             wire:navigate>
             Forgot Password?
           </a>
@@ -120,6 +121,7 @@
 
           <x-text-input
             type="checkbox"
+            wire:model="form.remember"
             class="w-5 h-5" />
 
           <span class="ml-2 font-medium text-md">

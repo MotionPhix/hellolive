@@ -3,6 +3,7 @@
 namespace App\Livewire\Auth;
 
 use App\Livewire\Forms\AuthForm;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -11,7 +12,7 @@ class Register extends Component
 {
   public AuthForm $form;
 
-  public function registerUser()
+  public function submit()
   {
 
     $this->form->store();

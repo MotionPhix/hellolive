@@ -6,14 +6,16 @@
     Sign up
   </h2>
 
-  <p class="mb-8 leading-tight text-gray-500 text-md dark:text-white -tracking-tighter">
+  <p class="mb-4 text-gray-500 text-md dark:text-white">
     Let's get you up and running in no time
   </p>
+
+  <div class="mt-3 mb-8 border-t border-gray-300"></div>
 
   <form
     class="grid -m-2 sm:grid-cols-2"
     novalidate="novalidate"
-    wire:submit="registerUser">
+    wire:submit="submit">
 
     <div class="w-full p-2">
 
@@ -105,7 +107,7 @@
         <x-input.text
           placeholder="Confirm your password"
           class="p-4 rounded-md"
-          wire:model="form.confirm_password"
+          wire:model="form.password_confirmation"
           type="password"
           id="password_confirmation" />
 

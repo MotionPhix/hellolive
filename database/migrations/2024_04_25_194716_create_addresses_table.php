@@ -10,17 +10,21 @@ return new class extends Migration {
    */
   public function up(): void
   {
-    Schema::create('boards', function (Blueprint $table) {
+    Schema::create('addresses', function (Blueprint $table) {
 
       $table->id();
 
-      $table->string('name');
+      $table->enum('type', ['home', 'work'])->default('work');
 
-      $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+      $table->string('street');
 
-      $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
+      $table->string('city');
 
-      $table->unique(['name', 'project_id']);
+      $table->string('state')->nullable();
+
+      $table->string('country')->nullable();
+
+      $table->morphs('addressable');
 
       $table->timestamps();
 
@@ -32,6 +36,6 @@ return new class extends Migration {
    */
   public function down(): void
   {
-    Schema::dropIfExists('boards');
+    Schema::dropIfExists('addresses');
   }
 };

@@ -14,10 +14,15 @@ return new class extends Migration
   public function up()
   {
     Schema::create('phones', function (Blueprint $table) {
+
       $table->id();
+
       $table->string('number');
+
       $table->enum('type', ['mobile', 'work', 'home', 'fax'])->default('mobile');
+
       $table->morphs('phoneable');
+
       $table->timestamps();
     });
   }
