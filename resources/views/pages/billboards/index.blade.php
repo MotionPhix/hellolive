@@ -155,12 +155,24 @@
 
 @extends('layouts.app')
 
-@section('title', 'Available Billboards')
+@section('title', 'Browse Available Billboards - FirstMark Advertising')
 @section('meta_description', 'Explore our extensive network of premium billboard locations across Malawi and Zambia. Find the perfect outdoor advertising space for your brand.')
 
 @section('content')
-  <div class="bg-white">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <!-- Page Header -->
+      <div class="md:flex md:items-center md:justify-between">
+        <div class="flex-1 min-w-0">
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+            Browse Billboards
+          </h1>
+          <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">
+            Find the perfect location for your advertisement
+          </p>
+        </div>
+      </div>
+
       <!-- Filters Section -->
       <div x-data="{
             filtersOpen: false,
@@ -172,9 +184,9 @@
             }
         }" class="relative z-10">
         <div class="flex items-center justify-between mb-6">
-          <h1 class="text-3xl font-bold text-gray-900">Billboards</h1>
-          <button @click="filtersOpen = !filtersOpen"
-                  class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+          <button
+            @click="filtersOpen = !filtersOpen"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
             <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
             </svg>

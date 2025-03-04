@@ -10,56 +10,57 @@ class BillboardController extends Controller
 {
   public function index(Request $request)
   {
-    $query = Billboard::query()->with('media');
-
-    // Apply filters
-    if ($request->filled('country')) {
-      $query->where('country', $request->country);
-    }
-
-    if ($request->filled('city')) {
-      $query->where('city', $request->city);
-    }
-
-    if ($request->filled('status')) {
-      $query->where('status', $request->status);
-    }
-
-    if ($request->filled('priceRange')) {
-      [$min, $max] = explode('-', $request->priceRange);
-      $query->when($max !== '+', function (Builder $query) use ($min, $max) {
-        $query->whereBetween('monthly_rate', [$min, $max]);
-      }, function (Builder $query) use ($min) {
-        $query->where('monthly_rate', '>=', $min);
+    $query = Billboard::query()
+      ->with('media')
+      ->when($request->filled('search'), function (Builder $query) use ($request) {
+        $query->where(function ($q) use ($request) {
+          $q->where('name', 'like', "%{$request->search}%")
+            ->orWhere('location', 'like', "%{$request->search}%")
+            ->orWhere('city', 'like', "%{$request->search}%");
+        });
+      })
+      ->when($request->filled('country'), function (Builder $query) use ($request) {
+        $query->where('country', $request->country);
+      })
+      ->when($request->filled('city'), function (Builder $query) use ($request) {
+        $query->where('city', $request->city);
+      })
+      ->when($request->filled('status'), function (Builder $query) use ($request) {
+        $query->where('status', $request->status);
+      })
+      ->when($request->filled('price_range'), function (Builder $query) use ($request) {
+        [$min, $max] = explode('-', $request->price_range);
+        if ($max === 'plus') {
+          $query->where('monthly_rate', '>=', (int) $min);
+        } else {
+          $query->whereBetween('monthly_rate', [(int) $min, (int) $max]);
+        }
+      })
+      ->when($request->filled('sort'), function (Builder $query) use ($request) {
+        [$column, $direction] = explode('-', $request->sort);
+        $query->orderBy($column, $direction);
+      }, function (Builder $query) {
+        $query->latest();
       });
-    }
 
-    // Get unique countries and cities for filters
-    $countries = Billboard::distinct()->pluck('country');
-    $cities = Billboard::distinct()->pluck('city');
+    // Get filter options
+    $countries = Billboard::distinct()->pluck('country')->sort();
+    $cities = Billboard::distinct()->pluck('city')->sort();
+    $priceRanges = [
+      '0-1000' => 'Up to $1,000',
+      '1000-2000' => '$1,000 - $2,000',
+      '2000-5000' => '$2,000 - $5,000',
+      '5000-plus' => '$5,000+',
+    ];
 
-    // Get billboards with pagination
-    $billboards = $query->latest()->paginate(12)->withQueryString();
+    $billboards = $query->paginate(12)->withQueryString();
 
-    // Get featured billboards for each country
-    $featuredMalawiBillboards = Billboard::where('country', 'Malawi')
-      ->where('status', 'available')
-      ->with('media')
-      ->take(3)
-      ->get();
-
-    $featuredZambiaBillboards = Billboard::where('country', 'Zambia')
-      ->where('status', 'available')
-      ->with('media')
-      ->take(3)
-      ->get();
-
-    return view(
-      'pages.home',
-      compact(
-        'billboards', 'countries', 'cities', 'featuredMalawiBillboards', 'featuredZambiaBillboards'
-      )
-    );
+    return view('pages.billboards.index', compact(
+      'billboards',
+      'countries',
+      'cities',
+      'priceRanges'
+    ));
   }
 
   public function show(Billboard $billboard)

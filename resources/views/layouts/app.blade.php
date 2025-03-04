@@ -122,21 +122,30 @@
             Billboards
           </a>
 
-          <a href="{{ route('about') }}" class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('about') ? 'text-indigo-600' : 'text-gray-500 hover:text-gray-700' }}">
+          <a
+            href="{{ route('about') }}"
+            class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('about') ? 'text-indigo-600' : 'text-gray-500 hover:text-gray-700' }}">
             About
           </a>
-          <a href="{{ route('contact.index') }}" class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('contact') ? 'text-indigo-600' : 'text-gray-500 hover:text-gray-700' }}">
+
+          <a
+            href="{{ route('contact.index') }}"
+            class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('contact') ? 'text-indigo-600' : 'text-gray-500 hover:text-gray-700' }}">
             Contact
           </a>
         </div>
 
         <!-- Mobile menu button -->
         <div class="flex items-center sm:hidden">
-          <button @click="mobileMenuOpen = !mobileMenuOpen" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+          <button
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
             <span class="sr-only">Open main menu</span>
+
             <svg x-show="!mobileMenuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
+
             <svg x-show="mobileMenuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -148,25 +157,30 @@
     <!-- Mobile menu -->
     <div x-show="mobileMenuOpen" class="sm:hidden">
       <div class="pt-2 pb-3 space-y-1">
-        <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'text-indigo-600 bg-indigo-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' }}">
+        <a
+          href="{{ route('home') }}"
+          class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'text-indigo-600 bg-indigo-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' }}">
           Home
         </a>
-        <div x-data="{
-                        mobileCountryOpen: false,
-                        countries: {{ json_encode(\App\Models\Billboard::select('country')->distinct()->get()->pluck('country')) }}
-                    }">
+        <div
+          x-data="{
+            mobileCountryOpen: false,
+            countries: {{ json_encode(\App\Models\Billboard::select('country')->distinct()->get()->pluck('country')) }}
+          }">
           <button @click="mobileCountryOpen = !mobileCountryOpen" class="w-full text-left px-3 py-2 text-base font-medium text-gray-500">
             <span x-text="selectedCountry === 'all' ? 'All Countries' : selectedCountry"></span>
             <svg class="inline-block ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
           </button>
+
           <div x-show="mobileCountryOpen" class="pl-4">
             <a href="#"
                @click.prevent="changeCountry('all'); mobileCountryOpen = false"
                class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100">
               All Countries
             </a>
+
             <template x-for="country in countries" :key="country">
               <a href="#"
                  @click.prevent="changeCountry(country); mobileCountryOpen = false"
@@ -179,7 +193,7 @@
 
         <a
           href="{{ route('billboards.index') }}"
-          class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('billboards') ? 'text-indigo-600 bg-indigo-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' }}">
+          class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('billboards.*') ? 'text-indigo-600 bg-indigo-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' }}">
           Billboards
         </a>
 
@@ -187,7 +201,7 @@
           About
         </a>
 
-        <a href="{{ route('contact.index') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('contact') ? 'text-indigo-600 bg-indigo-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' }}">
+        <a href="{{ route('contact.index') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('contact.*') ? 'text-indigo-600 bg-indigo-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' }}">
           Contact
         </a>
       </div>
