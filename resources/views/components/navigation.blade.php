@@ -7,7 +7,12 @@
     </a>
 
     <div class="flex items-center space-x-6">
-      <a href="{{ route('billboards') }}" class="text-gray-700 dark:text-gray-300 hover:text-blue-600">Billboards</a>
+      <a
+        href="{{ route('billboards.index') }}"
+        class="text-gray-700 dark:text-gray-300 hover:text-blue-600">
+        Billboards
+      </a>
+
       <a href="{{ route('about') }}" class="text-gray-700 dark:text-gray-300 hover:text-blue-600">About</a>
       <a href="{{ route('contact') }}" class="text-gray-700 dark:text-gray-300 hover:text-blue-600">Contact</a>
 
