@@ -1,0 +1,83 @@
+{{-- resources/views/home.blade.php --}}
+@extends('layouts.app')
+
+@section('content')
+    {{-- Hero Section --}}
+    <section class="relative bg-cover bg-center h-screen flex items-center justify-center text-center text-white" style="background-image: url('{{ asset('images/hero-bg.jpg') }}');">
+        <div class="bg-black bg-opacity-50 p-8 rounded-lg">
+            <h1 class="text-4xl md:text-6xl font-bold">Billboard Advertising Made Easy</h1>
+            <p class="mt-4 text-lg">Find the best billboard locations in Malawi & Zambia. Advertise with impact!</p>
+            <a href="#contact" class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg">Get Started</a>
+        </div>
+    </section>
+
+    {{-- Featured Billboards --}}
+    <section class="py-16 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center">Featured Billboards</h2>
+            <div class="mt-8 grid md:grid-cols-3 gap-8">
+                @foreach ($billboards as $billboard)
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                        <img src="{{ asset('storage/' . $billboard->image) }}" alt="{{ $billboard->title }}" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h3 class="text-xl font-semibold">{{ $billboard->title }}</h3>
+                            <p class="text-gray-700 dark:text-gray-300">{{ $billboard->location }}</p>
+                            <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Inquire</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- How It Works --}}
+    <section class="py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold">How It Works</h2>
+            <div class="mt-8 flex flex-col md:flex-row justify-center gap-8">
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg w-64">
+                    <span class="text-4xl">📍</span>
+                    <h3 class="text-xl font-semibold mt-2">Find a Location</h3>
+                </div>
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg w-64">
+                    <span class="text-4xl">📝</span>
+                    <h3 class="text-xl font-semibold mt-2">Book Your Billboard</h3>
+                </div>
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg w-64">
+                    <span class="text-4xl">🚀</span>
+                    <h3 class="text-xl font-semibold mt-2">Launch Your Ad</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Testimonials --}}
+    <section class="py-16 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold">What Our Clients Say</h2>
+            <div class="mt-8 grid md:grid-cols-2 gap-8">
+                @foreach ($testimonials as $testimonial)
+                    <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                        <p class="text-lg italic">"{{ $testimonial->message }}"</p>
+                        <p class="mt-4 font-bold">- {{ $testimonial->name }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- Contact Section --}}
+    <section id="contact" class="py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold">Get In Touch</h2>
+            <p class="mt-4">Let us help you find the best billboard for your advertising needs.</p>
+            <form action="{{ route('contact.submit') }}" method="POST" class="mt-8 max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                @csrf
+                <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded-lg border border-gray-300 mb-4">
+                <input type="email" name="email" placeholder="Your Email" class="w-full p-3 rounded-lg border border-gray-300 mb-4">
+                <textarea name="message" placeholder="Your Message" class="w-full p-3 rounded-lg border border-gray-300 mb-4"></textarea>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg">Send Message</button>
+            </form>
+        </div>
+    </section>
+@endsection
