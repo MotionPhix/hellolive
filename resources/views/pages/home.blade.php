@@ -270,7 +270,7 @@
 
   <!-- Testimonials Section -->
   <section class="flex items-center justify-center py-20 min-w-screen">
-    <div class="px-16 bg-white">
+    <div class="px-16 bg-white dark:!bg-transparent dark:!text-brand-100">
       <div class="max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-start mx-auto lg:items-center">
         <p
           class="relative flex items-start justify-start w-full text-lg font-bold tracking-wider text-purple-500 uppercase lg:justify-center lg:items-center"

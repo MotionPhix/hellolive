@@ -45,7 +45,7 @@
         <!-- Dark mode toggle -->
         <button
           x-data @click="$store.darkMode.toggle()"
-          class="ml-3 relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+          class="ml-3 relative p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
           <span class="sr-only">Toggle dark mode</span>
 
           <svg x-show="!$store.darkMode.on" class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
