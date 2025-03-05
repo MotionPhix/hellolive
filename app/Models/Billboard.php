@@ -23,6 +23,7 @@ class Billboard extends Model implements HasMedia
     'latitude',
     'longitude',
     'monthly_rate',
+    'type',
   ];
 
   protected $casts = [

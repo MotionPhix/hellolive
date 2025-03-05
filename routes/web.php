@@ -22,7 +22,7 @@ Route::prefix('billboards')->name('billboards.')->group(function () {
 });
 
 Route::get(
-  '/about',
+  '/company',
   [\App\Http\Controllers\AboutController::class, 'index']
 )->name('about');
 

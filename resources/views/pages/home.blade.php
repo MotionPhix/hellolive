@@ -14,7 +14,7 @@
         muted
         playsinline
         poster="{{ asset('images/hero-poster.jpg') }}">
-        <source src="{{ asset('videos/billboard-hero.mp4') }}" type="video/mp4">
+        <source src="{{ asset('videos/introduction_video.mp4') }}" type="video/mp4">
       </video>
       <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
     </div>
@@ -26,6 +26,7 @@
             <span class="block">Transform Your Brand's</span>
             <span class="bg-gradient-to-r from-indigo-400 to-purple-400 text-transparent bg-clip-text">Visibility</span>
           </h1>
+
           <p class="mt-6 max-w-2xl mx-auto text-xl sm:text-2xl text-gray-200">
             Strategic outdoor advertising locations across Malawi & Zambia
           </p>
@@ -40,11 +41,8 @@
             </a>
 
             <a href="{{ route('contact.index') }}"
-               class="group inline-flex items-center px-6 py-3 border-2 border-white text-base font-medium rounded-lg text-white hover:bg-white hover:text-gray-900 transition-all duration-200 transform hover:scale-105">
+               class="group px-6 py-3 text-base font-medium text-white hover:font-bold hover:text-blue-500 transition-all duration-200 transform hover:scale-105">
               Contact Us
-              <svg class="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-              </svg>
             </a>
           </div>
         </div>
@@ -65,72 +63,28 @@
   <section class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
-        <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+        <h2 class="font-display text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
           Premium Locations
         </h2>
+
         <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">
           Discover our most impactful billboard locations
         </p>
       </div>
 
       <div class="mt-16">
-        <div x-data class="space-y-12">
 
-          <!-- Location Tabs -->
-          <div class="flex justify-center space-x-4">
-            <livewire:components.button
-              size="lg"
-              :variant="$activeLocation === 'malawi' ? 'tab-active' : 'tab'"
-              wire:click="$set('activeLocation', 'malawi')"
-              class="rounded-full">
-              Malawi
-            </livewire:components.button>
+        <div class="space-y-12">
 
-            <livewire:components.button
-              size="lg"
-              :variant="$activeLocation === 'zambia' ? 'tab-active' : 'tab'"
-              wire:click="$set('activeLocation', 'zambia')"
-              class="rounded-full">
-              Zambia
-            </livewire:components.button>
-          </div>
+          <location-tabs
+            :initial-billboards='@json([
+                "malawi" => $featuredMalawiBillboards,
+                "zambia" => $featuredZambiaBillboards
+            ])'>
+          </location-tabs>
 
-          <!-- Location Content -->
-          <div x-show="activeLocation === 'malawi'"
-               x-transition:enter="transition ease-out duration-300"
-               x-transition:enter-start="opacity-0 transform translate-y-4"
-               x-transition:enter-end="opacity-100 transform translate-y-0"
-               class="grid grid-cols-1 gap-8 md:grid-cols-3">
-            @foreach($featuredMalawiBillboards as $billboard)
-              <div class="relative group">
-                <div class="relative overflow-hidden rounded-2xl shadow-lg aspect-[4/3]">
-                  <img src="{{ $billboard->getFirstMediaUrl('billboard_images') }}"
-                       alt="{{ $billboard->name }}"
-                       class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                </div>
-                <div class="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 class="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">{{ $billboard->name }}</h3>
-                  <p class="text-sm text-gray-300">{{ $billboard->city }}</p>
-                </div>
-                <a href="{{ route('billboards.show', $billboard) }}"
-                   class="absolute inset-0 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-2xl"
-                   aria-label="View details for {{ $billboard->name }}"></a>
-              </div>
-            @endforeach
-          </div>
-
-          <!-- Similar structure for Zambia billboards with same transitions -->
-          <div x-show="activeLocation === 'zambia'"
-               x-transition:enter="transition ease-out duration-300"
-               x-transition:enter-start="opacity-0 transform translate-y-4"
-               x-transition:enter-end="opacity-100 transform translate-y-0"
-               class="grid grid-cols-1 gap-8 md:grid-cols-3">
-            @foreach($featuredZambiaBillboards as $billboard)
-              <!-- Same card structure as above -->
-            @endforeach
-          </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -138,21 +92,47 @@
   <!-- Statistics Section -->
   <section class="py-20 bg-indigo-50 dark:bg-gray-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
-        <!-- Each stat card with improved dark mode & animations -->
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-200"
-             x-data="{ count: 0 }"
-             x-intersect="$el.animate([{ opacity: 0, transform: 'translateY(20px)' }, { opacity: 1, transform: 'translateY(0)' }],
-                         { duration: 1000, fill: 'forwards' });
-                         for(let i = 0; i <= {{ $totalBillboards }}; i++) {
-                             setTimeout(() => count = i, i * 20)
-                         }">
-          <div class="text-4xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 text-transparent bg-clip-text" x-text="count">0</div>
-          <div class="mt-2 text-gray-600 dark:text-gray-400">Total Billboards</div>
-        </div>
+      <!-- Features -->
+      <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <!-- Grid -->
+        <div class="grid gap-6 grid-cols-2 sm:gap-12 lg:grid-cols-3 lg:gap-8">
+          <!-- Stats -->
+          <div>
+            <h4 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-neutral-200">
+              Total billboards
+            </h4>
+            <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-blue-600">
+              {{ $totalBillboards }}+
+            </p>
+            <p class="mt-1 text-gray-500 dark:text-neutral-500">only active billboards</p>
+          </div>
+          <!-- End Stats -->
 
-        <!-- Repeat similar structure for other stats -->
+          <!-- Stats -->
+          <div>
+            <h4 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-neutral-200">
+              Total cities
+            </h4>
+
+            <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-blue-600">
+              {{ $totalCities }}+
+            </p>
+
+            <p class="mt-1 text-gray-500 dark:text-neutral-500">cities covered in active countries</p>
+          </div>
+          <!-- End Stats -->
+
+          <!-- Stats -->
+          <div>
+            <h4 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-neutral-200">Happy customer</h4>
+            <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-blue-600">{{ $satisfiedClients }}+</p>
+            <p class="mt-1 text-gray-500 dark:text-neutral-500">this year alone</p>
+          </div>
+          <!-- End Stats -->
+        </div>
+        <!-- End Grid -->
       </div>
+      <!-- End Features -->
     </div>
   </section>
 

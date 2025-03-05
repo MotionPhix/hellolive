@@ -66,7 +66,7 @@
   <!-- Scripts -->
   @stack('scripts')
 </head>
-<body id="app"
+<body id="app_base"
   x-data="{
         mobileMenuOpen: false,
         countryDropdownOpen: false,

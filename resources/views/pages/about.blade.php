@@ -5,51 +5,83 @@
 
 @section('content')
   <!-- Hero Section -->
-  <div class="relative bg-indigo-800">
-    <div class="absolute inset-0">
-      <img class="w-full h-full object-cover" src="{{ asset('images/about-hero.jpg') }}" alt="FirstMark Team">
-      <div class="absolute inset-0 bg-indigo-800 mix-blend-multiply"></div>
+  <div class="relative min-h-[80vh] flex items-center">
+    <!-- Parallax background -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute inset-0 z-0"
+           x-data="{}"
+           x-init="window.addEventListener('scroll', () => {
+             $el.style.transform = `translateY(${window.scrollY * 0.5}px)`
+           })">
+        <img
+          class="w-full h-full object-cover"
+          src="{{ asset('images/about-hero.jpg') }}"
+          alt="FirstMark Team">
+      </div>
+      <!-- Gradient overlay with animated opacity -->
+      <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/90 via-indigo-800/85 to-indigo-900/80 mix-blend-multiply"></div>
     </div>
 
-    <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">About FirstMark</h1>
-      <p class="mt-6 max-w-3xl text-xl text-indigo-100">
-        Transforming the outdoor advertising landscape in Southern Africa since 2010
-      </p>
-    </div>
-  </div>
+    <!-- Content -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+      <div class="max-w-3xl"
+           x-data="{}"
+           x-init="setTimeout(() => {
+             $el.classList.add('opacity-100', 'translate-y-0')
+           }, 100)"
+           class="opacity-0 translate-y-4 transition-all duration-1000">
+        <!-- Decorative element -->
+        <div class="w-20 h-1 bg-indigo-500 mb-8"></div>
 
-  <!-- Mission & Vision Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div class="relative">
-          <div class="h-64 lg:absolute lg:h-full lg:w-full lg:inset-y-0 lg:right-0 lg:transform lg:translate-x-1/3">
-            <img class="object-cover w-full h-full rounded-lg shadow-xl"
-                 src="{{ asset('images/mission.jpg') }}"
-                 alt="FirstMark Mission">
+        <!-- Main heading with gradient text -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-white">
+            About FirstMark
+          </span>
+        </h1>
+
+        <!-- Subheading with animated typing effect -->
+        <p class="mt-8 text-xl sm:text-2xl text-indigo-200 font-light max-w-2xl leading-relaxed"
+           x-data="{ text: '', fullText: 'Transforming the outdoor advertising landscape in Southern Africa since 2010' }"
+           x-init="
+             let i = 0;
+             let interval = setInterval(() => {
+               if (i <= $data.fullText.length) {
+                 $data.text = $data.fullText.substring(0, i);
+                 i++;
+               } else {
+                 clearInterval(interval);
+               }
+             }, 50)
+           "
+           x-text="text">
+        </p>
+
+        <!-- Statistics -->
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-transform duration-300">
+            <div class="text-4xl font-bold text-white mb-2">10+</div>
+            <div class="text-indigo-200">Years Experience</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-transform duration-300">
+            <div class="text-4xl font-bold text-white mb-2">2</div>
+            <div class="text-indigo-200">Countries</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-transform duration-300">
+            <div class="text-4xl font-bold text-white mb-2">500+</div>
+            <div class="text-indigo-200">Billboard Locations</div>
           </div>
         </div>
-        <div class="lg:pr-8">
-          <div class="max-w-prose mx-auto lg:max-w-lg lg:ml-auto lg:mr-0">
-            <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Our Mission
-            </h2>
-            <p class="mt-4 text-lg text-gray-600">
-              To provide innovative and impactful outdoor advertising solutions that help brands connect with their audience effectively across Southern Africa.
-            </p>
 
-            <h2 class="mt-8 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Our Vision
-            </h2>
-            <p class="mt-4 text-lg text-gray-600">
-              To be the leading outdoor advertising company in Africa, known for excellence, innovation, and strategic advertising solutions.
-            </p>
-          </div>
+        <!-- Scroll indicator -->
+        <div class="mt-16 flex justify-center animate-bounce">
+          <svg class="w-6 h-6 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Values Section -->
   <section class="py-16 bg-gray-50">
