@@ -3,32 +3,14 @@ import { ref, computed, onMounted } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
 import Pagination from '../Pagination.vue'
 
-const props = defineProps({
-  initialBillboards: {
-    type: Array,
-    required: true
-  },
-  initialCountries: {
-    type: Array,
-    required: true
-  },
-  initialCities: {
-    type: Array,
-    required: true
-  },
-  initialTypes: {
-    type: Array,
-    required: true
-  },
-  initialFilters: {
-    type: Object,
-    required: true
-  },
-  links: {
-    type: Array,
-    required: true
-  }
-})
+const props = defineProps<{
+  initialBillboards: []
+  initialCountries: []
+  initialCities: []
+  initialTypes: []
+  initialFilters: {}
+  links: [] | {}
+}>()
 
 const showFilters = ref(false)
 const scrolled = ref(false)
@@ -155,9 +137,10 @@ onMounted(() => {
             <!-- Country Filter -->
             <div>
               <label class="block text-sm font-medium text-gray-700">Country</label>
-              <select v-model="filters.country"
-                      @change="updateFilters"
-                      class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+              <select
+                v-model="filters.country"
+                @change="updateFilters"
+                class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 <option value="all">All Countries</option>
                 <option v-for="country in countries" :key="country" :value="country.toLowerCase()">
                   {{ country }}
@@ -168,9 +151,10 @@ onMounted(() => {
             <!-- City Filter -->
             <div>
               <label class="block text-sm font-medium text-gray-700">City</label>
-              <select v-model="filters.city"
-                      @change="updateFilters"
-                      class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+              <select
+                v-model="filters.city"
+                @change="updateFilters"
+                class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 <option value="all">All Cities</option>
                 <option v-for="city in filteredCities" :key="city" :value="city.toLowerCase()">
                   {{ city }}
@@ -181,9 +165,10 @@ onMounted(() => {
             <!-- Type Filter -->
             <div>
               <label class="block text-sm font-medium text-gray-700">Type</label>
-              <select v-model="filters.type"
-                      @change="updateFilters"
-                      class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+              <select
+                v-model="filters.type"
+                @change="updateFilters"
+                class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 <option value="all">All Types</option>
                 <option v-for="type in types" :key="type" :value="type.toLowerCase()">
                   {{ type }}
@@ -214,9 +199,10 @@ onMounted(() => {
 
           <!-- Action buttons -->
           <div class="mt-6 flex justify-center gap-3">
-            <button v-if="isFiltered"
-                    @click="clearFilters"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button
+              v-if="isFiltered"
+              @click="clearFilters"
+              class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Clear Filters
             </button>
 
@@ -231,59 +217,68 @@ onMounted(() => {
 
       <!-- Billboards Grid -->
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="billboard in billboards"
-             :key="billboard.id"
-             class="group relative bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+        <!-- Card -->
+        <div
+          :key="billboard.id"
+          v-for="billboard in billboards"
+          class="relative overflow-hidden group flex flex-col h-full bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+          <!--div class="h-52 flex flex-col justify-center items-center bg-blue-600 rounded-t-xl">
+          </div-->
+
           <!-- Image -->
           <div class="aspect-w-16 aspect-h-9 relative">
-            <img :src="billboard.image_url"
-                 :alt="billboard.name"
-                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            <div v-if="!billboard.is_available"
-                 class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-              <span class="px-4 py-2 bg-red-500 text-white rounded-full text-sm font-semibold">
+            <img
+              :src="billboard.featured_image || `https://images.unsplash.com/photo-1585159812596-fac104f2f069?q=80&w=320&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`"
+              :alt="billboard.name"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+
+            <div
+              v-if="!billboard.is_available"
+              class="absolute right-0 top-0">
+              <span class="px-4 py-2 bg-red-500 text-white rounded-bl-lg text-sm font-semibold">
                 Booked
               </span>
             </div>
           </div>
 
-          <!-- Content -->
-          <div class="p-6">
-            <div class="flex items-start justify-between">
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900">{{ billboard.name }}</h3>
-                <p class="mt-1 text-sm text-gray-500">{{ billboard.city }}, {{ billboard.country }}</p>
-              </div>
-              <span :class="[
-                'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium',
-                billboard.is_available ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-              ]">
-                {{ billboard.type }}
-              </span>
-            </div>
+          <div class="p-4 md:p-6">
 
-            <div class="mt-4 flex items-center justify-between">
-              <div>
-                <span class="text-2xl font-bold text-indigo-600">${{ formatPrice(billboard.price) }}</span>
-                <span class="text-sm text-gray-500">/month</span>
-              </div>
-              <a
-                :href="`billboards/${billboard.id}`"
-                 class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                View Details
-                <svg class="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
+            <span class="block mb-1 text-xs font-semibold uppercase text-blue-600 dark:text-blue-500">
+              {{ billboard.city }}, {{ billboard.country }}
+            </span>
+
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+              {{ billboard.name }}
+            </h3>
+
+            <!--p class="mt-3 text-gray-500 dark:text-neutral-500">
+              {{ billboard.description }}
+            </p-->
+
+          </div>
+
+          <div class="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
+            <a
+              class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-es-xl bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+              :href="route('billboards.show', billboard.id)">
+              View details
+            </a>
+
+            <a
+              class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-ee-xl bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+              href="#">
+              Request quote
+            </a>
           </div>
         </div>
+        <!-- End Card -->
       </div>
 
       <!-- Pagination -->
-      <pagination v-if="billboards.length"
-                  :links="links"
-                  class="mt-8" />
+      <pagination
+        v-if="billboards.length && Object.keys(links).length"
+        :links="links"
+        class="mt-8" />
     </div>
   </div>
 </template>

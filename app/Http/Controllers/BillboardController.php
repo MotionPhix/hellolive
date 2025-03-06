@@ -66,7 +66,6 @@ class BillboardController extends Controller
   public function index(Request $request)
   {
     $query = Billboard::query()
-      ->with('media')
       ->when($request->filled('search'), function (Builder $query) use ($request) {
         $query->where(function ($q) use ($request) {
           $q->where('name', 'like', "%{$request->search}%")
@@ -89,9 +88,9 @@ class BillboardController extends Controller
       ->when($request->filled('price_range'), function (Builder $query) use ($request) {
         [$min, $max] = explode('-', $request->price_range);
         if ($max === 'plus') {
-          $query->where('monthly_rate', '>=', (int) $min);
+          $query->where('monthly_rate', '>=', (int)$min);
         } else {
-          $query->whereBetween('monthly_rate', [(int) $min, (int) $max]);
+          $query->whereBetween('monthly_rate', [(int)$min, (int)$max]);
         }
       })
       ->when($request->filled('sort'), function (Builder $query) use ($request) {
@@ -105,6 +104,7 @@ class BillboardController extends Controller
     $countries = Billboard::distinct()->pluck('country')->sort();
     $cities = Billboard::distinct()->pluck('city')->sort();
     $types = Billboard::distinct()->pluck('type')->sort();
+
     $priceRanges = [
       '0-1000' => 'Up to $1,000',
       '1000-2000' => '$1,000 - $2,000',
@@ -121,6 +121,18 @@ class BillboardController extends Controller
     ];
 
     $billboards = $query->paginate(12)->withQueryString();
+
+    // Transform the data to include only what we need
+    $billboards->through(function ($billboard) {
+
+      // $media = $billboard->getFirstMedia();
+      $url = $billboard->getFirstMediaUrl();
+      $billboard->featured_image = $url ?? null;
+
+      unset($billboard->media);
+
+      return $billboard;
+    });
 
     return view('pages.billboards.index', compact(
       'billboards',

@@ -2,12 +2,9 @@
 import { computed } from 'vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
 
-const props = defineProps({
-  links: {
-    type: Array,
-    required: true
-  }
-})
+const props = defineProps<{
+  links: [] | {}
+}>()
 
 const simpleLinks = computed(() => {
   if (props.links.length) {

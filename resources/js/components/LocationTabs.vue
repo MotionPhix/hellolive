@@ -54,12 +54,14 @@ const currentBillboards = computed(() => {
           >
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
         </div>
+
         <div class="absolute bottom-0 left-0 right-0 p-6">
           <h3 class="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
             {{ billboard.name }}
           </h3>
           <p class="text-sm text-gray-300">{{ billboard.city }}</p>
         </div>
+
         <a
           :href="billboard.url"
           class="absolute inset-0 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-2xl"

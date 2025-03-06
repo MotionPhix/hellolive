@@ -25,6 +25,7 @@
     "@heroicons/vue": "^2.2.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vueuse/core": "^12.8.0",
-    "alpinejs": "^3.14.8"
+    "alpinejs": "^3.14.8",
+    "path": "^0.12.7"
   }
 }

@@ -9,8 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BillboardResource extends Resource
 {
@@ -27,20 +25,25 @@ class BillboardResource extends Resource
             Forms\Components\TextInput::make('name')
               ->required()
               ->maxLength(255),
+
             Forms\Components\TextInput::make('location')
               ->required()
               ->maxLength(255),
+
             Forms\Components\TextInput::make('city')
               ->required()
               ->maxLength(255),
+
             Forms\Components\TextInput::make('state')
               ->maxLength(255),
+
             Forms\Components\Select::make('country')
               ->required()
               ->options([
                 'Malawi' => 'Malawi',
                 'Zambia' => 'Zambia',
               ]),
+
             Forms\Components\Select::make('status')
               ->required()
               ->options([
@@ -48,14 +51,17 @@ class BillboardResource extends Resource
                 'occupied' => 'Occupied',
                 'maintenance' => 'Under Maintenance',
               ]),
+
             Forms\Components\Textarea::make('description')
               ->maxLength(65535),
+
             Forms\Components\Grid::make()
               ->schema([
                 Forms\Components\TextInput::make('dimensions.width')
                   ->required()
                   ->numeric()
                   ->label('Width (m)'),
+
                 Forms\Components\TextInput::make('dimensions.height')
                   ->required()
                   ->numeric()
@@ -67,22 +73,40 @@ class BillboardResource extends Resource
                   ->required()
                   ->numeric()
                   ->step('0.000001'),
+
                 Forms\Components\TextInput::make('longitude')
                   ->required()
                   ->numeric()
                   ->step('0.000001'),
               ]),
+
             Forms\Components\TextInput::make('monthly_rate')
               ->required()
               ->numeric()
               ->prefix('MWK'),
-            Forms\Components\SpatieMediaLibraryFileUpload::make('billboard_images')
+            /*Forms\Components\SpatieMediaLibraryFileUpload::make('billboard_images')
               ->collection('billboard_images')
               ->multiple()
               ->maxFiles(5)
-              ->reorderable(),
+              ->reorderable(),*/
+            Forms\Components\SpatieMediaLibraryFileUpload::make('billboard_images')
+              ->collection('billboard_images')
+              ->multiple()
+              ->image()
+              ->imageResizeMode('cover')
+              ->imageCropAspectRatio('16:9')
+              ->imageResizeTargetWidth('1920')
+              ->imageResizeTargetHeight('1080')
+              ->panelLayout('grid')
+              ->maxFiles(5)
+              ->reorderable()
+              ->downloadable()
+              ->openable()
+              ->required()
+              ->helperText('Upload up to 5 images. Recommended size: 1920x1080px. Supported formats: JPG, PNG, WebP')
+              ->columnSpanFull(),
           ])->columns(2)
-      ]);
+      ])->model(\App\Models\Billboard::class);
   }
 
   public static function table(Table $table): Table
