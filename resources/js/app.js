@@ -6,27 +6,22 @@ import intersect from '@alpinejs/intersect'
 import { ZiggyVue } from 'ziggy-js';
 
 import { createApp } from 'vue';
+import {
+  IconBrain, IconLocation
+} from "@tabler/icons-vue"
 import LocationTabs from "@/components/LocationTabs.vue";
 import BillboardList from "@/components/billboards/BillboardList.vue";
 import Pagination from "@/components/pagination.vue";
 import ThemeSwitch from "@/components/ThemeSwitch.vue";
 import AppLogo from "@/components/AppLogo.vue";
 import ResponsiveNav from "@/components/ResponsiveNav.vue";
+import FeatureCard from "@/components/FeatureCard.vue";
 
 window.Alpine = Alpine
 
 Alpine.plugin(persist)
 Alpine.plugin(focus)
 Alpine.plugin(intersect)
-
-// Define store before starting Alpine
-Alpine.store('darkMode', {
-  on: Alpine.$persist(false).as('darkMode'),
-  toggle() {
-    this.on = !this.on
-    document.documentElement.classList.toggle('dark')
-  }
-})
 
 Alpine.start()
 
@@ -40,4 +35,7 @@ app
   .component('theme-switch', ThemeSwitch)
   .component('app-logo', AppLogo)
   .component('responsive-nav', ResponsiveNav)
+  .component('feature-card', FeatureCard)
+  .component('brain-icon', IconBrain)
+  .component('location-icon', IconLocation)
   .mount('#app')

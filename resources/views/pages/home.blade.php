@@ -115,8 +115,8 @@
   <section class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
-        <h2 class="font-display text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-          Premium Locations
+        <h2 class="font-display text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl">
+          Featured premium locations
         </h2>
 
         <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">
@@ -192,138 +192,33 @@
   <section class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-          Why Choose FirstMark
+        <h2 class="text-4xl font-extrabold font-display text-gray-900 dark:text-white sm:text-5xl">
+          Why Firstmark Advertising
         </h2>
         <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">
           Your success is our priority
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-        <!-- Feature Cards with hover effects and dark mode -->
-        <div
-          class="group relative p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all duration-300">
-          <div class="absolute -top-5 left-6">
-            <div
-              class="rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 p-3 transform group-hover:scale-110 transition-transform duration-200">
-              <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-            </div>
-          </div>
+      <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
+        <!-- Feature Cards -->
 
-          <h3
-            class="mt-8 text-xl font-medium text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-            Strategic Locations
-          </h3>
+        <feature-card
+          feature-title="Strategic Locations"
+          explanation="Prime billboard positions in high-traffic areas across major cities in Malawi and Zambia.">
+          <location-icon class="shrink-0 size-8" />
+        </feature-card>
 
-          <p class="mt-4 text-gray-600 dark:text-gray-400">
-            Prime billboard positions in high-traffic areas across major cities in Malawi and Zambia.
-          </p>
+        <feature-card
+          feature-title="Creative minds"
+          explanation="We choose our teams carefully. Our people are the secret to great work.">
+          <brain-icon class="shrink-0 size-8" />
+        </feature-card>
 
-          <div class="mt-6 flex items-center text-indigo-600 dark:text-indigo-400">
-            <span class="text-sm font-medium">Learn more</span>
-            <svg class="ml-2 h-4 w-4 transform group-hover:translate-x-2 transition-transform" fill="none"
-                 stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Repeat similar structure for other features -->
+        <!-- End Feature Cards -->
       </div>
     </div>
   </section>
-
-  <!-- Feature Blocks -->
-  <div class="max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 items-center gap-12">
-      <!-- Icon Block -->
-      <div>
-        <svg class="shrink-0 size-9 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24"
-             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-             stroke-linejoin="round">
-          <rect width="10" height="14" x="3" y="8" rx="2"/>
-          <path d="M5 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-2.4"/>
-          <path d="M8 18h.01"/>
-        </svg>
-        <div
-          class="bg-linear-to-r from-gray-200 via-gray-50 to-transparent h-0.5 mt-6 dark:from-neutral-700 dark:via-neutral-900">
-          <div class="bg-gray-400 w-9 h-0.5 dark:bg-neutral-600"></div>
-        </div>
-
-        <div class="mt-5">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Responsive</h3>
-          <p class="mt-1 text-gray-600 dark:text-neutral-400">Responsive, and mobile-first project on the web</p>
-        </div>
-      </div>
-      <!-- End Icon Block -->
-
-      <!-- Icon Block -->
-      <div>
-        <svg class="shrink-0 size-9 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24"
-             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-             stroke-linejoin="round">
-          <path d="M20 7h-9"/>
-          <path d="M14 17H5"/>
-          <circle cx="17" cy="17" r="3"/>
-          <circle cx="7" cy="7" r="3"/>
-        </svg>
-        <div
-          class="bg-linear-to-r from-gray-200 via-gray-50 to-transparent h-0.5 mt-6 dark:from-neutral-700 dark:via-neutral-900">
-          <div class="bg-gray-400 w-9 h-0.5 dark:bg-neutral-600"></div>
-        </div>
-        <div class="mt-5">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Customizable</h3>
-          <p class="mt-1 text-gray-600 dark:text-neutral-400">Components are easily customized and extendable</p>
-        </div>
-      </div>
-      <!-- End Icon Block -->
-
-      <!-- Icon Block -->
-      <div>
-        <svg class="shrink-0 size-9 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24"
-             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-             stroke-linejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-        <div
-          class="bg-linear-to-r from-gray-200 via-gray-50 to-transparent h-0.5 mt-6 dark:from-neutral-700 dark:via-neutral-900">
-          <div class="bg-gray-400 w-9 h-0.5 dark:bg-neutral-600"></div>
-        </div>
-        <div class="mt-5">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Documentation</h3>
-          <p class="mt-1 text-gray-600 dark:text-neutral-400">Every component and plugin is well documented</p>
-        </div>
-      </div>
-      <!-- End Icon Block -->
-
-      <!-- Icon Block -->
-      <div>
-        <svg class="shrink-0 size-9 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24"
-             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-             stroke-linejoin="round">
-          <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"/>
-          <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/>
-        </svg>
-        <div
-          class="bg-linear-to-r from-gray-200 via-gray-50 to-transparent h-0.5 mt-6 dark:from-neutral-700 dark:via-neutral-900">
-          <div class="bg-gray-400 w-9 h-0.5 dark:bg-neutral-600"></div>
-        </div>
-        <div class="mt-5">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-white">24/7 Support</h3>
-          <p class="mt-1 text-gray-600 dark:text-neutral-400">Contact us 24 hours a day, 7 days a week</p>
-        </div>
-      </div>
-      <!-- End Icon Block -->
-    </div>
-  </div>
-  <!-- End Feature Blocks -->
 
   <!-- Partners Section (New) -->
   <section class="py-20 bg-gray-50 dark:bg-gray-800/50">
@@ -569,7 +464,7 @@
         <div class="relative px-6 py-12 sm:px-12 lg:px-16">
           <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 items-center">
             <div>
-              <h3 class="text-3xl font-bold text-white font-display">Stay Updated</h3>
+              <h3 class="text-4xl font-bold text-white font-display">Stay Updated</h3>
               <p class="mt-4 text-lg text-indigo-100">
                 Get the latest updates on new locations and special offers.
               </p>
