@@ -12,6 +12,7 @@ return new class extends Migration {
   {
     Schema::create('billboards', function (Blueprint $table) {
       $table->id();
+      $table->uuid('uuid')->unique();
       $table->string('name');
       $table->string('location');
       $table->string('city');

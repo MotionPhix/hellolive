@@ -7,7 +7,7 @@ import { ZiggyVue } from 'ziggy-js';
 
 import { createApp } from 'vue';
 import {
-  IconBrain, IconLocation
+  IconBrain, IconLocation, IconPhoneCall, IconMail
 } from "@tabler/icons-vue"
 import LocationTabs from "@/components/LocationTabs.vue";
 import BillboardList from "@/components/billboards/BillboardList.vue";
@@ -38,4 +38,6 @@ app
   .component('feature-card', FeatureCard)
   .component('brain-icon', IconBrain)
   .component('location-icon', IconLocation)
+  .component('phone-icon', IconPhoneCall)
+  .component('email-icon', IconMail)
   .mount('#app')

@@ -15,7 +15,7 @@ Route::prefix('billboards')->name('billboards.')->group(function () {
   )->name('index');
 
   Route::get(
-    '/s/{billboard}',
+    '/s/{billboard:uuid}',
     [\App\Http\Controllers\BillboardController::class, 'show']
   )->name('show');
 
@@ -29,7 +29,7 @@ Route::get(
 Route::prefix('contact')->name('contact.')->group(function () {
 
   Route::get(
-    '/',
+    '/{billboard:uuid?}',
     [\App\Http\Controllers\ContactController::class, 'index']
   )->name('index');
 

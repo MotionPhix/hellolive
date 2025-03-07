@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasBootUuid;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -10,9 +11,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Billboard extends Model implements HasMedia
 {
-  use InteractsWithMedia;
+  use InteractsWithMedia, HasBootUuid;
 
   protected $fillable = [
+    'uuid',
     'name',
     'location',
     'city',

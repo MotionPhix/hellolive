@@ -73,25 +73,14 @@ class BillboardController extends Controller
             ->orWhere('city', 'like', "%{$request->search}%");
         });
       })
-      ->when($request->filled('country'), function (Builder $query) use ($request) {
-        $query->where('country', $request->country);
+      ->when($request->filled('country') && $request->country !== 'all', function (Builder $query) use ($request) {
+        $query->whereRaw('LOWER(country) = ?', [strtolower($request->country)]);
       })
-      ->when($request->filled('city'), function (Builder $query) use ($request) {
-        $query->where('city', $request->city);
+      ->when($request->filled('city') && $request->city !== 'all', function (Builder $query) use ($request) {
+        $query->whereRaw('LOWER(city) = ?', [strtolower($request->city)]);
       })
-      ->when($request->filled('type'), function (Builder $query) use ($request) {
-        $query->where('type', $request->type);
-      })
-      ->when($request->filled('status'), function (Builder $query) use ($request) {
-        $query->where('status', $request->status);
-      })
-      ->when($request->filled('price_range'), function (Builder $query) use ($request) {
-        [$min, $max] = explode('-', $request->price_range);
-        if ($max === 'plus') {
-          $query->where('monthly_rate', '>=', (int)$min);
-        } else {
-          $query->whereBetween('monthly_rate', [(int)$min, (int)$max]);
-        }
+      ->when($request->filled('type') && $request->type !== 'all', function (Builder $query) use ($request) {
+        $query->whereRaw('LOWER(type) = ?', [strtolower($request->type)]);
       })
       ->when($request->filled('sort'), function (Builder $query) use ($request) {
         [$column, $direction] = explode('-', $request->sort);
@@ -101,24 +90,29 @@ class BillboardController extends Controller
       });
 
     // Get filter options
-    $countries = Billboard::distinct()->pluck('country')->sort();
-    $cities = Billboard::distinct()->pluck('city')->sort();
-    $types = Billboard::distinct()->pluck('type')->sort();
+    $cities = Billboard::distinct()
+      ->pluck('city')
+      ->filter()  // Remove any null values
+      ->map(fn($city) => ucfirst(strtolower($city))) // Normalize case
+      ->sort()
+      ->values()
+      ->toArray(); // Convert to array explicitly
 
-    $priceRanges = [
-      '0-1000' => 'Up to $1,000',
-      '1000-2000' => '$1,000 - $2,000',
-      '2000-5000' => '$2,000 - $5,000',
-      '5000-plus' => '$5,000+',
-    ];
+    $countries = Billboard::distinct()
+      ->pluck('country')
+      ->filter()
+      ->map(fn($country) => ucfirst(strtolower($country)))
+      ->sort()
+      ->values()
+      ->toArray();
 
-    // Current filter values
-    $filters = [
-      'country' => $request->input('country', 'all'),
-      'city' => $request->input('city', 'all'),
-      'type' => $request->input('type', 'all'),
-      'sort' => $request->input('sort', 'created_at-desc')
-    ];
+    $types = Billboard::distinct()
+      ->pluck('type')
+      ->filter()
+      ->map(fn($type) => ucfirst(strtolower($type)))
+      ->sort()
+      ->values()
+      ->toArray();
 
     $billboards = $query->paginate(12)->withQueryString();
 
@@ -134,14 +128,18 @@ class BillboardController extends Controller
       return $billboard;
     });
 
-    return view('pages.billboards.index', compact(
-      'billboards',
-      'countries',
-      'cities',
-      'types',
-      'priceRanges',
-      'filters'
-    ));
+    return view('pages.billboards.index', [
+      'billboards' => $billboards,
+      'cities' => $cities,
+      'countries' => $countries,
+      'types' => $types,
+      'filters' => [
+        'country' => strtolower($request->input('country', 'all')),
+        'city' => strtolower($request->input('city', 'all')),
+        'type' => strtolower($request->input('type', 'all')),
+        'sort' => $request->input('sort', 'created_at-desc'),
+      ],
+    ]);
   }
 
   public function show(Billboard $billboard)
@@ -167,7 +165,7 @@ class BillboardController extends Controller
       ],
     ];
 
-    return view('pages.billboard-detail', [
+    return view('pages.billboards.show', [
       'billboard' => $billboard,
       'structuredData' => $structuredData,
     ]);

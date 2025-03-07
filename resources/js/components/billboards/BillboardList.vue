@@ -6,9 +6,14 @@ import Pagination from '../Pagination.vue'
 const props = defineProps<{
   initialBillboards: []
   initialCountries: []
-  initialCities: []
+  initialCities: [] | {}
   initialTypes: []
-  initialFilters: {}
+  initialFilters: {
+    country: string
+    city: string
+    type: string
+    sort: string
+  }
   links: [] | {}
 }>()
 
@@ -207,7 +212,7 @@ onMounted(() => {
             </button>
 
             <a
-              href="/contact"
+              :href="route('contact.index')"
                class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Contact Us
             </a>
@@ -219,7 +224,7 @@ onMounted(() => {
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Card -->
         <div
-          :key="billboard.id"
+          :key="billboard.uuid"
           v-for="billboard in billboards"
           class="relative overflow-hidden group flex flex-col h-full bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
           <!--div class="h-52 flex flex-col justify-center items-center bg-blue-600 rounded-t-xl">
@@ -260,7 +265,7 @@ onMounted(() => {
           <div class="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
             <a
               class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-es-xl bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-              :href="route('billboards.show', billboard.id)">
+              :href="route('billboards.show', billboard)">
               View details
             </a>
 

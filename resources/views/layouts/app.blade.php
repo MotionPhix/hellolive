@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html
-  lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-  x-data
-  :class="{ 'dark': $store.darkMode.on }">
+  lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,59 +67,34 @@
   <!-- Scripts -->
   @stack('scripts')
 </head>
-<body id="app"
-  x-data="{
-    mobileMenuOpen: false,
-    countryDropdownOpen: false,
-    selectedCountry: localStorage.getItem('selectedCountry') || 'all'
-  }"
+<body
+  id="app"
   class="min-h-screen bg-white dark:bg-gray-900 font-sans antialiased">
 
-<!-- Skip to main content -->
-<a href="#main-content"
-   class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-md">
-  Skip to main content
-</a>
+  <!-- Skip to main content -->
+  <a
+    href="#main-content"
+     class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-md">
+    Skip to main content
+  </a>
 
-<!-- Navigation -->
-@include('layouts.navigation')
+  <!-- Navigation -->
+  @include('layouts.navigation')
 
-<!-- Page Content -->
-<main id="main-content">
-  @if (isset($header))
-    <header class="bg-white dark:bg-gray-800 shadow">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {{ $header }}
-      </div>
-    </header>
-  @endif
+  <!-- Page Content -->
+  <main id="main-content">
+    @if (isset($header))
+      <header class="bg-white dark:bg-gray-800 shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          {{ $header }}
+        </div>
+      </header>
+    @endif
 
-  @yield('content')
-</main>
+    @yield('content')
+  </main>
 
-<!-- Footer -->
-@include('layouts.footer')
-
-<!-- Notification -->
-<div x-data="{ show: false, message: '', type: 'success' }"
-     x-on:notification.window="
-        show = true;
-        message = $event.detail.message;
-        type = $event.detail.type || 'success';
-        setTimeout(() => show = false, 3000)
-     "
-     x-show="show"
-     x-transition
-     class="fixed bottom-4 right-4 z-50"
-     role="alert">
-  <div :class="{
-            'bg-green-500': type === 'success',
-            'bg-red-500': type === 'error',
-            'bg-blue-500': type === 'info',
-            'bg-yellow-500': type === 'warning'
-        }" class="rounded-lg shadow-lg p-4 text-white">
-    <p x-text="message"></p>
-  </div>
-</div>
+  <!-- Footer -->
+  @include('layouts.footer')
 </body>
 </html>

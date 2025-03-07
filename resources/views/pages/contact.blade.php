@@ -7,7 +7,7 @@
   <div class="bg-white">
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-900 text-center mb-8">Contact Us</h1>
+        <h1 class="text-4xl font-bold text-gray-900 text-center mb-8 font-display">Contact Us</h1>
 
         @if(session('success'))
           <div class="rounded-md bg-green-50 p-4 mb-6">
@@ -37,11 +37,14 @@
             <div>
               <label for="first_name" class="block text-sm font-medium text-gray-700">First name</label>
               <div class="mt-1">
-                <input type="text" name="first_name" id="first_name"
-                       class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                       value="{{ old('first_name') }}">
+                <input
+                  type="text"
+                  name="first_name" id="first_name"
+                  class="block w-full shadow-sm sm:text-sm py-4 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  value="{{ old('first_name') }}">
+
                 @error('first_name')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                  <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
               </div>
             </div>
@@ -49,11 +52,14 @@
             <div>
               <label for="last_name" class="block text-sm font-medium text-gray-700">Last name</label>
               <div class="mt-1">
-                <input type="text" name="last_name" id="last_name"
-                       class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                       value="{{ old('last_name') }}">
+                <input
+                  type="text"
+                  name="last_name" id="last_name"
+                  class="block w-full py-4 shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  value="{{ old('last_name') }}">
+
                 @error('last_name')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                  <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
               </div>
             </div>
@@ -61,11 +67,14 @@
             <div class="sm:col-span-2">
               <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
               <div class="mt-1">
-                <input type="text" name="company" id="company"
-                       class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                       value="{{ old('company') }}">
+                <input
+                  type="text"
+                  name="company" id="company"
+                  class="block py-4 w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  value="{{ old('company') }}">
+
                 @error('company')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                  <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
               </div>
             </div>
@@ -73,9 +82,12 @@
             <div class="sm:col-span-2">
               <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
               <div class="mt-1">
-                <input type="email" name="email" id="email"
-                       class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                       value="{{ old('email') }}">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="block py-4 w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  value="{{ old('email') }}">
                 @error('email')
                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -85,9 +97,12 @@
             <div class="sm:col-span-2">
               <label for="phone" class="block text-sm font-medium text-gray-700">Phone number</label>
               <div class="mt-1">
-                <input type="text" name="phone" id="phone"
-                       class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                       value="{{ old('phone') }}">
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  class="block py-4 w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  value="{{ old('phone') }}">
                 @error('phone')
                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -97,8 +112,9 @@
             <div class="sm:col-span-2">
               <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
               <div class="mt-1">
-                            <textarea name="message" id="message" rows="4"
-                                      class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">{{ old('message') }}</textarea>
+                <textarea
+                  name="message" id="message" rows="4"
+                  class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">{{ old('message') }}</textarea>
                 @error('message')
                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -107,8 +123,9 @@
           </div>
 
           <div class="sm:col-span-2">
-            <button type="submit"
-                    class="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button
+              type="submit"
+              class="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Send Message
             </button>
           </div>
@@ -117,27 +134,57 @@
         <!-- Contact Information -->
         <div class="mt-16 bg-gray-50 rounded-lg overflow-hidden">
           <div class="px-6 py-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Our Offices</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6 font-display">Our offices</h2>
             <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
               <!-- Malawi Office -->
               <div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Malawi</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3 font-display">Malawi</h3>
+
+                <div class="my-4 border-2"></div>
+
                 <div class="space-y-2 text-gray-600">
-                  <p>123 Business District</p>
-                  <p>Lilongwe, Malawi</p>
-                  <p>Phone: +265 999 999 999</p>
-                  <p>Email: malawi@firstmarkmw.com</p>
+                  <p>Infinity Complex</p>
+                  <p>Sir Glyn Jones Road</p>
+                  <p>Before Lilongwe Water Board</p>
+                  <p>Area 3, Lilongwe, Malawi</p>
+
+                  <div class="h-4"></div>
+
+                  <p class="flex items-center gap-2">
+                    <phone-icon></phone-icon>
+                    <span>+265 996 727 163</span>
+                  </p>
+
+                  <p class="flex items-center gap-2">
+                    <email-icon></email-icon>
+                    <span>sales@firstmarkmw.com</span>
+                  </p>
                 </div>
               </div>
 
               <!-- Zambia Office -->
               <div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Zambia</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3 font-display">Zambia</h3>
+
+                <div class="my-4 border-2"></div>
+
                 <div class="space-y-2 text-gray-600">
-                  <p>456 Commercial Zone</p>
-                  <p>Lusaka, Zambia</p>
-                  <p>Phone: +260 999 999 999</p>
-                  <p>Email: zambia@firstmarkmw.com</p>
+                  <p>Office number 5</p>
+                  <p>Kee Real Estate Limited</p>
+                  <p>27/24 Manchinchi Road</p>
+                  <p>Northmead, Lusaka, Zambia</p>
+
+                  <div class="h-4"></div>
+
+                  <p class="flex items-center gap-2">
+                    <phone-icon></phone-icon>
+                    <span>+260 760 690 357</span>
+                  </p>
+
+                  <p class="flex items-center gap-2">
+                    <email-icon></email-icon>
+                    <span>firstmarkadvertising@gmail.com</span>
+                  </p>
                 </div>
               </div>
             </div>

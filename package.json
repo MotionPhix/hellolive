@@ -28,6 +28,8 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vueuse/core": "^12.8.0",
     "alpinejs": "^3.14.8",
+    "google-libphonenumber": "^3.2.40",
+    "libphonenumber-js": "^1.12.5",
     "path": "^0.12.7"
   }
 }
