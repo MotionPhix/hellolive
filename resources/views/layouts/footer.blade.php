@@ -5,7 +5,7 @@
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-8 xl:col-span-1">
         <div class="flex items-center">
-          <app-logo :size="16" />
+          <app-logo :size="16"></app-logo>
         </div>
 
         <p class="text-base max-w-lg text-gray-500 dark:text-gray-400">
@@ -147,35 +147,6 @@
             </ul>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Newsletter Section -->
-    <div class="mt-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-      <div class="max-w-xl">
-        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-          Subscribe to our newsletter
-        </h3>
-        <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
-          Get the latest updates on new locations and special offers.
-        </p>
-        <form class="mt-4 sm:flex" action="{{ route('newsletter.subscribe') }}" method="POST">
-          @csrf
-          <label for="email-address" class="sr-only">Email address</label>
-          <input type="email"
-                 name="email"
-                 id="email-address"
-                 autocomplete="email"
-                 required
-                 class="appearance-none min-w-0 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                 placeholder="Enter your email">
-          <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-            <button type="submit"
-                    class="w-full flex items-center justify-center bg-indigo-600 border border-transparent rounded-md py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900">
-              Subscribe
-            </button>
-          </div>
-        </form>
       </div>
     </div>
 

@@ -11,6 +11,7 @@ import BillboardList from "@/components/billboards/BillboardList.vue";
 import Pagination from "@/components/pagination.vue";
 import ThemeSwitch from "@/components/ThemeSwitch.vue";
 import AppLogo from "@/components/AppLogo.vue";
+import ResponsiveNav from "@/components/ResponsiveNav.vue";
 
 window.Alpine = Alpine
 
@@ -37,5 +38,6 @@ app
   .component('billboard-list', BillboardList)
   .component('pagination', Pagination)
   .component('theme-switch', ThemeSwitch)
-  .component('AppLogo', AppLogo)
+  .component('app-logo', AppLogo)
+  .component('responsive-nav', ResponsiveNav)
   .mount('#app')

@@ -71,17 +71,10 @@
 </head>
 <body id="app"
   x-data="{
-        mobileMenuOpen: false,
-        countryDropdownOpen: false,
-        selectedCountry: localStorage.getItem('selectedCountry') || 'all'
-    }"
-  x-init="$watch('$store.darkMode.on', value => {
-        if (value === true) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    })"
+    mobileMenuOpen: false,
+    countryDropdownOpen: false,
+    selectedCountry: localStorage.getItem('selectedCountry') || 'all'
+  }"
   class="min-h-screen bg-white dark:bg-gray-900 font-sans antialiased">
 
 <!-- Skip to main content -->
@@ -112,11 +105,11 @@
 <!-- Notification -->
 <div x-data="{ show: false, message: '', type: 'success' }"
      x-on:notification.window="
-            show = true;
-            message = $event.detail.message;
-            type = $event.detail.type || 'success';
-            setTimeout(() => show = false, 3000)
-         "
+        show = true;
+        message = $event.detail.message;
+        type = $event.detail.type || 'success';
+        setTimeout(() => show = false, 3000)
+     "
      x-show="show"
      x-transition
      class="fixed bottom-4 right-4 z-50"
