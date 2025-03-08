@@ -110,9 +110,25 @@ class BillboardController extends Controller
       ],
     ];
 
+    // Get related billboards in the same city or of the same type
+    $relatedBillboards = Billboard::query()
+      ->where('id', '!=', $billboard->id)
+      ->where(function ($query) use ($billboard) {
+        $query->where('city', $billboard->city)
+          ->orWhere('type', $billboard->type);
+      })
+      ->with(['media' => function ($query) {
+        $query->orderBy('order_column')
+          ->select(['id', 'model_id', 'disk', 'file_name', 'preview_url'])
+          ->take(1);
+      }])
+      ->take(4)
+      ->get();
+
     return view('pages.billboards.show', [
       'billboard' => $billboard,
       'structuredData' => $structuredData,
+      'relatedBillboards' => $relatedBillboards
     ]);
   }
 

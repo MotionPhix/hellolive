@@ -1,8 +1,4 @@
 import './bootstrap';
-import Alpine from 'alpinejs'
-import persist from '@alpinejs/persist'
-import focus from '@alpinejs/focus'
-import intersect from '@alpinejs/intersect'
 import {ZiggyVue} from 'ziggy-js';
 import {register} from "swiper/element";
 
@@ -12,6 +8,7 @@ import {
 } from "@tabler/icons-vue"
 import LocationTabs from "@/components/LocationTabs.vue";
 import BillboardList from "@/components/billboards/BillboardList.vue";
+import BillboardShow from "@/components/billboards/BillboardShow.vue";
 import Pagination from "@/components/pagination.vue";
 import ThemeSwitch from "@/components/ThemeSwitch.vue";
 import AppLogo from "@/components/AppLogo.vue";
@@ -26,16 +23,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import {Input} from "@/components/ui/input";
-import BillboardShow from "@/components/billboards/BillboardShow.vue";
+import {Button} from "@/components/ui/button";
+import {Textarea} from "@/components/ui/textarea";
+import {Label} from "@/components/ui/label";
 
-window.Alpine = Alpine
-
-Alpine.plugin(persist)
-Alpine.plugin(focus)
-Alpine.plugin(intersect)
-
-Alpine.start()
 register()
 
 const app = createApp({});
@@ -61,5 +70,21 @@ app
   .component('SelectLabel', SelectLabel)
   .component('SelectTrigger', SelectTrigger)
   .component('SelectValue', SelectValue)
+  .component('Card', Card)
+  .component('CardContent', CardContent)
+  .component('CardDescription', CardDescription)
+  .component('CardTitle', CardTitle)
+  .component('CardHeader', CardHeader)
+  .component('CardFooter', CardFooter)
+  .component('AlertDialog', AlertDialog)
+  .component('AlertDialogContent', AlertDialogContent)
+  .component('AlertDialogDescription', AlertDialogDescription)
+  .component('AlertDialogTitle', AlertDialogTitle)
+  .component('AlertDialogHeader', AlertDialogHeader)
+  .component('AlertDialogFooter', AlertDialogFooter)
+  .component('AlertDialogTrigger', AlertDialogTrigger)
+  .component('Button', Button)
+  .component('Textarea', Textarea)
   .component('Input', Input)
+  .component('Label', Label)
   .mount('#app')

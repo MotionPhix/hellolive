@@ -18,7 +18,7 @@ return new class extends Migration {
       $table->string('email');
       $table->string('phone');
       $table->text('message');
-      $table->foreignId('billboard_id')->nullable()->constrained()->nullOnDelete();
+      $table->foreignUuid('billboard_uuid')->nullable()->references('uuid')->on('billboards')->nullOnDelete();
       $table->timestamps();
     });
   }

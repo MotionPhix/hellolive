@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactFormRequest;
 use App\Models\Billboard;
 use App\Models\Contact;
+use App\Models\User;
 use App\Notifications\NewContactInquiry;
 use Illuminate\Support\Facades\Notification;
 
@@ -29,8 +30,8 @@ class ContactController extends Controller
     }
 
     // Send notification to admin
-    Notification::route('mail', config('mail.admin_address'))
-      ->notify(new NewContactInquiry($contact));
+    $admins = User::where('is_admin', true)->get();
+    Notification::send($admins, new NewContactInquiry($contact));
 
     return back()->with('success', 'Thank you for your message. We will get back to you soon!');
   }

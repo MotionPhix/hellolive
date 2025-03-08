@@ -7,6 +7,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import QuoteRequestModal from "@/components/billboards/QuoteRequestModal.vue";
+import {IconBrandWhatsapp} from "@tabler/icons-vue";
 
 // Fix for Leaflet's default icon path issues
 delete (L.Icon.Default.prototype as any)._getIconUrl
@@ -43,6 +45,18 @@ const props = defineProps<{
       original_url: string
     }>
   }
+  relatedBillboards?: Array<{
+    id: number
+    uuid:string
+    name: string
+    location: string
+    city: string
+    monthly_rate: string
+    is_available: boolean
+    media: Array<{
+      preview_url: string
+    }>
+  }>
 }>()
 
 const activeImage = ref(props.billboard.media[0]?.original_url || '')
@@ -215,21 +229,38 @@ onMounted(() => {
             </div>
 
             <!-- Action Buttons -->
-            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
-              <div class="flex space-x-4">
-                <a
-                  :href="`https://wa.me/+265888666555?text=Hi, I'm interested in the ${billboard.name} billboard located at ${billboard.location}.`"
-                  target="_blank"
-                  class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md text-sm font-semibold text-center">
-                  Contact via WhatsApp
-                </a>
+<!--            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">-->
+<!--              <div class="flex space-x-4">-->
+<!--                <a-->
+<!--                  :href="`https://wa.me/+265996727163?text=Hi, I'm interested in the ${billboard.name} billboard located at ${billboard.location}.`"-->
+<!--                  target="_blank"-->
+<!--                  class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md text-sm font-semibold text-center">-->
+<!--                  WhatsApp-->
+<!--                </a>-->
 
-                <button
-                  class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-sm font-semibold">
-                  Request Quote
-                </button>
+<!--                <button-->
+<!--                  class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-sm font-semibold">-->
+<!--                  Request Quote-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+              <div class="flex gap-4">
+                <Button
+                  class="flex-1" size="lg"
+                  :href="`https://wa.me/+265996727163?text=Hi, I'm interested in the ${billboard.name} billboard located at ${billboard.location}.`"
+                  target="_blank">
+                  <IconBrandWhatsapp />
+                  WhatsApp
+                </Button>
+
+                <QuoteRequestModal
+                  :billboard="billboard"
+                />
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -239,11 +270,72 @@ onMounted(() => {
         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6 font-display">Location</h2>
 
         <div
-          id="mapContainer"
           ref="mapContainer"
-          class="h-[400px] rounded-lg overflow-hidden"
+          class="h-[425px] rounded-lg overflow-hidden z-20"
         />
       </div>
+
+      <!-- Related Billboards Section -->
+      <section class="mt-16 border-t border-gray-200 dark:border-gray-700 pt-8">
+        <div class="space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+              Related Billboards
+            </h2>
+            <Button variant="outline" :href="route('billboards.index')">
+              View All
+            </Button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+              v-for="related in relatedBillboards"
+              :key="related.id"
+              class="group relative bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            >
+              <!-- Thumbnail -->
+              <div class="aspect-w-16 aspect-h-9">
+                <img
+                  :src="related.media[0]?.preview_url || '/images/placeholder.jpg'"
+                  :alt="related.name"
+                  class="object-cover group-hover:scale-105 transition-transform duration-300">
+
+                <div
+                  v-if="!related.is_available"
+                  class="absolute right-0 top-0">
+                <span class="px-4 py-2 bg-red-500 text-white rounded-bl-lg text-sm font-semibold">
+                  Booked
+                </span>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900 dark:text-white">
+                  {{ related.name }}
+                </h3>
+
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  {{ related.location }}
+                </p>
+
+                <div class="mt-4 flex items-center justify-between">
+                <span class="text-lg font-medium text-gray-900 dark:text-white">
+                  {{ formatPrice(related.monthly_rate) }}
+                </span>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    :href="route('billboards.show', related.uuid)">
+                    View Details
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>
@@ -293,6 +385,16 @@ onMounted(() => {
 
 .dark .swiper-pagination-bullet-active {
   @apply bg-gray-300;
+}
+
+/* Add smooth transitions for dark mode */
+.dark-mode-transition {
+  @apply transition-colors duration-200;
+}
+
+/* Enhanced card hover effects */
+.billboard-card {
+  @apply transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
 }
 
 /* Add Leaflet specific styles */
