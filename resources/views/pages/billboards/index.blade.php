@@ -12,4 +12,5 @@
     :initial-filters='@json($filters)'
     :links='@json($billboards->links())'
   />
+  <pre>{{ $billboards }}</pre>
 @endsection

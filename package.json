@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "postinstall": "node postinstall.cjs"
   },
   "devDependencies": {
     "@tabler/icons-vue": "^3.31.0",
@@ -26,10 +27,19 @@
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
     "@vitejs/plugin-vue": "^5.2.1",
-    "@vueuse/core": "^12.8.0",
+    "@vueuse/core": "^12.8.2",
     "alpinejs": "^3.14.8",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "google-libphonenumber": "^3.2.40",
+    "leaflet": "^1.9.4",
     "libphonenumber-js": "^1.12.5",
-    "path": "^0.12.7"
+    "lucide-vue-next": "^0.479.0",
+    "path": "^0.12.7",
+    "reka-ui": "^2.0.2",
+    "swiper": "^11.2.5",
+    "tailwind-merge": "^3.0.2",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

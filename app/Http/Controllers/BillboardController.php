@@ -8,61 +8,6 @@ use Illuminate\Http\Request;
 
 class BillboardController extends Controller
 {
-  /*public function index(Request $request)
-  {
-    $query = Billboard::query()
-      ->with('media')
-      ->when($request->filled('search'), function (Builder $query) use ($request) {
-        $query->where(function ($q) use ($request) {
-          $q->where('name', 'like', "%{$request->search}%")
-            ->orWhere('location', 'like', "%{$request->search}%")
-            ->orWhere('city', 'like', "%{$request->search}%");
-        });
-      })
-      ->when($request->filled('country'), function (Builder $query) use ($request) {
-        $query->where('country', $request->country);
-      })
-      ->when($request->filled('city'), function (Builder $query) use ($request) {
-        $query->where('city', $request->city);
-      })
-      ->when($request->filled('status'), function (Builder $query) use ($request) {
-        $query->where('status', $request->status);
-      })
-      ->when($request->filled('price_range'), function (Builder $query) use ($request) {
-        [$min, $max] = explode('-', $request->price_range);
-        if ($max === 'plus') {
-          $query->where('monthly_rate', '>=', (int) $min);
-        } else {
-          $query->whereBetween('monthly_rate', [(int) $min, (int) $max]);
-        }
-      })
-      ->when($request->filled('sort'), function (Builder $query) use ($request) {
-        [$column, $direction] = explode('-', $request->sort);
-        $query->orderBy($column, $direction);
-      }, function (Builder $query) {
-        $query->latest();
-      });
-
-    // Get filter options
-    $countries = Billboard::distinct()->pluck('country')->sort();
-    $cities = Billboard::distinct()->pluck('city')->sort();
-    $priceRanges = [
-      '0-1000' => 'Up to $1,000',
-      '1000-2000' => '$1,000 - $2,000',
-      '2000-5000' => '$2,000 - $5,000',
-      '5000-plus' => '$5,000+',
-    ];
-
-    $billboards = $query->paginate(12)->withQueryString();
-
-    return view('pages.billboards.index', compact(
-      'billboards',
-      'countries',
-      'cities',
-      'priceRanges'
-    ));
-  }*/
-
   public function index(Request $request)
   {
     $query = Billboard::query()
