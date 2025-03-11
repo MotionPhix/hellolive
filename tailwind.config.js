@@ -68,7 +68,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
+        display: ['Lora', ...defaultTheme.fontFamily.serif],
         figures: ['Eczar', ...defaultTheme.fontFamily.serif],
       },
       keyframes: {

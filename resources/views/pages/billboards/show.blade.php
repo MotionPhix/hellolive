@@ -148,6 +148,7 @@
         })
       ], JSON_PRETTY_PRINT)
     }}"
+    :related-billboards="{{ json_encode($relatedBillboards) }}"
   />
 @endsection
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, Keyboard, Autoplay } from 'swiper/modules'
+import {ref, onMounted} from 'vue'
+import {Swiper, SwiperSlide} from 'swiper/vue'
+import {Navigation, Pagination, Keyboard, Autoplay} from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -9,6 +9,7 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import QuoteRequestModal from "@/components/billboards/QuoteRequestModal.vue";
 import {IconBrandWhatsapp} from "@tabler/icons-vue";
+import RelatedBillboards from "@/components/billboards/RelatedBillboards.vue";
 
 // Fix for Leaflet's default icon path issues
 delete (L.Icon.Default.prototype as any)._getIconUrl
@@ -47,7 +48,7 @@ const props = defineProps<{
   }
   relatedBillboards?: Array<{
     id: number
-    uuid:string
+    uuid: string
     name: string
     location: string
     city: string
@@ -117,10 +118,11 @@ onMounted(() => {
         <div class="relative z-10 pb-8 bg-white dark:bg-gray-800 sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32">
           <div class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div class="sm:text-center lg:text-left">
-              <h1 class="text-4xl tracking-tight font-bold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
+              <h1 class="text-4xl tracking-tight font-display font-bold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
                 <span class="block xl:inline">{{ billboard.name }}</span>
               </h1>
-              <p class="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+              <p
+                class="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                 {{ billboard.location }}
               </p>
 
@@ -193,10 +195,12 @@ onMounted(() => {
           <div class="space-y-6">
             <!-- Location Details -->
             <div class="flex flex-col space-y-2">
-              <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+              <div class="flex items-center text-gray-500 dark:text-gray-400">
                 <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
                 {{ billboard.city }}, {{ billboard.state }}, {{ billboard.country }}
               </div>
@@ -206,7 +210,7 @@ onMounted(() => {
             <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
               <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Dimensions</h3>
               <div class="mt-4 space-y-2">
-                <p class="text-sm text-gray-600 dark:text-gray-400">
+                <p class="text-gray-600 dark:text-gray-400">
                   Width: {{ billboard.dimensions.width }}m × Height: {{ billboard.dimensions.height }}m
                 </p>
               </div>
@@ -215,7 +219,8 @@ onMounted(() => {
             <!-- Monthly Rate -->
             <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
               <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Monthly Rate</h3>
-              <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+
+              <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white font-display">
                 {{ formatPrice(billboard.monthly_rate) }}
               </p>
             </div>
@@ -223,27 +228,27 @@ onMounted(() => {
             <!-- Description -->
             <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
               <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Description</h3>
-              <div class="mt-4 prose prose-sm text-gray-500 dark:text-gray-400">
+              <div class="mt-4 prose text-gray-500 dark:text-gray-400">
                 {{ billboard.description || 'No description available.' }}
               </div>
             </div>
 
             <!-- Action Buttons -->
-<!--            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">-->
-<!--              <div class="flex space-x-4">-->
-<!--                <a-->
-<!--                  :href="`https://wa.me/+265996727163?text=Hi, I'm interested in the ${billboard.name} billboard located at ${billboard.location}.`"-->
-<!--                  target="_blank"-->
-<!--                  class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md text-sm font-semibold text-center">-->
-<!--                  WhatsApp-->
-<!--                </a>-->
+            <!--            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">-->
+            <!--              <div class="flex space-x-4">-->
+            <!--                <a-->
+            <!--                  :href="`https://wa.me/+265996727163?text=Hi, I'm interested in the ${billboard.name} billboard located at ${billboard.location}.`"-->
+            <!--                  target="_blank"-->
+            <!--                  class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md text-sm font-semibold text-center">-->
+            <!--                  WhatsApp-->
+            <!--                </a>-->
 
-<!--                <button-->
-<!--                  class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-sm font-semibold">-->
-<!--                  Request Quote-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </div>-->
+            <!--                <button-->
+            <!--                  class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-sm font-semibold">-->
+            <!--                  Request Quote-->
+            <!--                </button>-->
+            <!--              </div>-->
+            <!--            </div>-->
 
             <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
               <div class="flex gap-4">
@@ -251,7 +256,7 @@ onMounted(() => {
                   class="flex-1" size="lg"
                   :href="`https://wa.me/+265996727163?text=Hi, I'm interested in the ${billboard.name} billboard located at ${billboard.location}.`"
                   target="_blank">
-                  <IconBrandWhatsapp />
+                  <IconBrandWhatsapp/>
                   WhatsApp
                 </Button>
 
@@ -276,66 +281,74 @@ onMounted(() => {
       </div>
 
       <!-- Related Billboards Section -->
-      <section class="mt-16 border-t border-gray-200 dark:border-gray-700 pt-8">
-        <div class="space-y-6">
-          <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-              Related Billboards
-            </h2>
-            <Button variant="outline" :href="route('billboards.index')">
-              View All
-            </Button>
-          </div>
+<!--      <section class="mt-16 border-t border-gray-200 dark:border-gray-700 pt-8">-->
+<!--        <div class="space-y-6">-->
+<!--          <div class="flex items-center justify-between">-->
+<!--            <h2 class="text-xl font-bold text-gray-900 dark:text-white">-->
+<!--              Related Billboards-->
+<!--            </h2>-->
+<!--            <Button-->
+<!--              variant="outline"-->
+<!--              :href="route('billboards.index')"-->
+<!--              as="a">-->
+<!--              View All-->
+<!--            </Button>-->
+<!--          </div>-->
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div
-              v-for="related in relatedBillboards"
-              :key="related.id"
-              class="group relative bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300"
-            >
-              <!-- Thumbnail -->
-              <div class="aspect-w-16 aspect-h-9">
-                <img
-                  :src="related.media[0]?.preview_url || '/images/placeholder.jpg'"
-                  :alt="related.name"
-                  class="object-cover group-hover:scale-105 transition-transform duration-300">
+<!--          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">-->
+<!--            <div-->
+<!--              v-for="related in relatedBillboards"-->
+<!--              :key="related.id"-->
+<!--              class="group relative bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300"-->
+<!--            >-->
+<!--              &lt;!&ndash; Thumbnail &ndash;&gt;-->
+<!--              <div class="aspect-w-16 aspect-h-9">-->
+<!--                <img-->
+<!--                  :src="related.featured_image || '/images/placeholder.jpg'"-->
+<!--                  :alt="related.name"-->
+<!--                  class="object-cover group-hover:scale-105 transition-transform duration-300">-->
 
-                <div
-                  v-if="!related.is_available"
-                  class="absolute right-0 top-0">
-                <span class="px-4 py-2 bg-red-500 text-white rounded-bl-lg text-sm font-semibold">
-                  Booked
-                </span>
-                </div>
-              </div>
+<!--                <div-->
+<!--                  v-if="!related.is_available"-->
+<!--                  class="absolute right-0 top-0">-->
+<!--                <span class="px-4 py-2 bg-red-500 text-white rounded-bl-lg text-sm font-semibold">-->
+<!--                  Booked-->
+<!--                </span>-->
+<!--                </div>-->
+<!--              </div>-->
 
-              <!-- Content -->
-              <div class="p-4">
-                <h3 class="font-semibold text-gray-900 dark:text-white">
-                  {{ related.name }}
-                </h3>
+<!--              &lt;!&ndash; Content &ndash;&gt;-->
+<!--              <div class="p-4">-->
+<!--                <h3 class="font-semibold text-gray-900 dark:text-white">-->
+<!--                  {{ related.name }}-->
+<!--                </h3>-->
 
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  {{ related.location }}
-                </p>
+<!--                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">-->
+<!--                  {{ related.location }}-->
+<!--                </p>-->
 
-                <div class="mt-4 flex items-center justify-between">
-                <span class="text-lg font-medium text-gray-900 dark:text-white">
-                  {{ formatPrice(related.monthly_rate) }}
-                </span>
+<!--                <div class="mt-4 flex items-center justify-between">-->
+<!--                <span class="text-lg font-medium text-gray-900 dark:text-white">-->
+<!--                  {{ formatPrice(related.monthly_rate) }}-->
+<!--                </span>-->
 
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    :href="route('billboards.show', related.uuid)">
-                    View Details
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<!--                  <Button-->
+<!--                    variant="outline"-->
+<!--                    size="sm"-->
+<!--                    :href="route('billboards.show', related)">-->
+<!--                    View Details-->
+<!--                  </Button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </section>-->
+
+      <!-- Related Billboards Section -->
+      <RelatedBillboards
+        :related-billboards="relatedBillboards"
+      />
     </main>
   </div>
 </template>

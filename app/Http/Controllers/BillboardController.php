@@ -123,7 +123,21 @@ class BillboardController extends Controller
           ->take(1);
       }])
       ->take(4)
-      ->get();
+      ->get()
+      ->map(function ($relatedBillboard) {
+        return [
+          'id' => $relatedBillboard->id,
+          'name' => $relatedBillboard->name,
+          'location' => $relatedBillboard->location,
+          'city' => $relatedBillboard->city,
+          'country' => $relatedBillboard->country,
+          'status' => $relatedBillboard->status,
+          'monthly_rate' => $relatedBillboard->monthly_rate,
+          'type' => $relatedBillboard->type,
+          'is_available' => $relatedBillboard->is_available,
+          'featured_image' => $relatedBillboard->getFirstMediaUrl('billboard_images'),
+        ];
+      });
 
     return view('pages.billboards.show', [
       'billboard' => $billboard,
